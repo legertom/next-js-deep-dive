@@ -240,14 +240,14 @@ export async function UserGreeting() {
       />
 
       <HandsOn
-        title="Build a Mixed Static/Dynamic Page"
+        title={'Add "use cache" to your blog posts page'}
+        projectStep="Step 16 of 32 — Blog Platform Project"
+        projectContext={'Your posts page shows a timestamp that changes on every refresh. Now you will cache it.'}
         steps={[
-          'Create a new page at app/news/page.tsx (no "use cache" -- keep it dynamic)',
-          'Create a component at app/news/categories.tsx with "use cache" at the top that fetches category data',
-          "Create a component at app/news/latest-stories.tsx (no cache) that shows a timestamp",
-          "Import both into your page and render them together",
-          "Observe that Categories stays cached while Latest Stories updates on every refresh",
-          "Enable cacheComponents: true in next.config.ts if you haven't already",
+          "Open next.config.ts and add cacheComponents: true inside the nextConfig object. Save the file.",
+          'Now open app/posts/page.tsx and add "use cache" as the very first line of the file (above all imports).',
+          "Refresh the page a few times. The timestamp should now stay the same — the page is being served from cache instead of re-rendering.",
+          "Try changing the heading text in app/posts/page.tsx. Even after saving, the old cached version may still show. Stop and restart the dev server to clear the cache and see your change.",
         ]}
       />
     </div>

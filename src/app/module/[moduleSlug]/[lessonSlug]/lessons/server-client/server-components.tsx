@@ -283,13 +283,14 @@ export default async function PostPage({ params }: { params: { slug: string } })
       />
 
       <HandsOn
-        title="Inspect the RSC payload"
+        title="Move blog posts into a data file"
+        projectStep="Step 9 of 32 — Blog Platform Project"
+        projectContext="Open your my-blog project. Right now your posts are hardcoded directly inside app/posts/page.tsx."
         steps={[
-          "Create a simple Server Component that fetches data (even mock data with a delay).",
-          "In your browser, open DevTools Network tab and navigate to the page. Look for the document request.",
-          "Now do a client-side navigation to that page (click a Link). You'll see a request with the `RSC` content type -- this is the RSC payload.",
-          "Examine the payload. Notice how it contains the rendered output, not the component code. Find where Client Components are referenced by module path.",
-          "Compare the size of this payload to what a full client-side React app would ship (component code + dependencies). That difference is the RSC advantage.",
+          "Create a new file at app/data/posts.ts. Paste in an array of 3 post objects, each with slug, title, and body fields. Export it like this: export const posts = [{ slug: 'first-post', title: 'My First Post', body: 'Hello world!' }, ...]",
+          "Open app/posts/page.tsx. At the top, import your data: import { posts } from '../data/posts'. Then replace your hardcoded posts with: {posts.map(post => <li key={post.slug}><a href={'/posts/' + post.slug}>{post.title}</a></li>)}",
+          "Refresh http://localhost:3000/posts — you should see your 3 posts listed. The data comes from your file, but the browser never downloads that file. It all happens on the server.",
+          "Add console.log(posts) inside your page function. Check your terminal — the data prints there. Check the browser console — nothing. This proves the data stays on the server.",
         ]}
       />
     </div>

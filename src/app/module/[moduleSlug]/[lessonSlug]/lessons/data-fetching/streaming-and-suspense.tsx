@@ -296,14 +296,15 @@ async function Analytics() {
       />
 
       <HandsOn
-        title="Implement Streaming with Suspense Boundaries"
+        title="Show a loading state while data loads"
+        projectStep="Step 14 of 32 — Blog Platform Project"
+        projectContext="Open your my-blog project. Your posts page fetches data from an API, but the user sees nothing until all the data arrives. Now you will show a loading message while the data loads."
         steps={[
-          "Create app/streaming-demo/page.tsx with three async child components that have artificial delays: FastComponent (100ms), MediumComponent (1000ms), SlowComponent (3000ms)",
-          "Use setTimeout wrapped in a promise to simulate the delays: await new Promise(r => setTimeout(r, ms))",
-          "Wrap MediumComponent and SlowComponent each in their own <Suspense> boundary with skeleton fallbacks",
-          "Run the app and observe: the page shell and FastComponent appear immediately, MediumComponent appears after 1s, SlowComponent after 3s",
-          "Open browser DevTools Network tab and watch the response stream in real-time — notice the connection stays open",
-          "Now create a loading.tsx in the same folder and observe how it wraps the entire page in an additional Suspense boundary",
+          "Open app/posts/page.tsx. Move your fetch logic into a new async function component called PostList in the same file. Have your main page component render <PostList /> instead of doing the fetch directly.",
+          "At the top of app/posts/page.tsx, add: import { Suspense } from 'react'. Then wrap your PostList in a Suspense boundary: <Suspense fallback={<p>Loading posts...</p>}><PostList /></Suspense>",
+          "To see the loading state clearly, add a fake delay inside PostList before the fetch: await new Promise(resolve => setTimeout(resolve, 2000)); — this makes it wait 2 seconds.",
+          "Refresh http://localhost:3000/posts. You should see 'Loading posts...' for about 2 seconds, then the real posts appear. The page heading shows up right away while the slow part loads in the background.",
+          "Remove the fake delay when you are done. The Suspense boundary will still work — it just shows the loading state for however long the real fetch takes.",
         ]}
       />
 

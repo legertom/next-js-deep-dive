@@ -307,16 +307,14 @@ rm -rf .next/cache/turbopack`}
       />
 
       <HandsOn
-        title="Configure Turbopack with File System Caching"
+        title="See instant Hot Module Replacement in action"
+        projectStep="Step 22 of 32 — Blog Platform Project"
+        projectContext="Your blog should be running with `npm run dev`. Open it in your browser at http://localhost:3000."
         steps={[
-          "In your Next.js 16 project, open next.config.ts",
-          "Add experimental.turbopackFileSystemCacheForDev: true to enable persistent caching",
-          "Run next dev and wait for the initial compile to finish",
-          "Stop the dev server (Ctrl+C), then check that .next/cache/turbopack/ exists on disk",
-          "Restart the dev server and observe the faster startup time in the terminal output",
-          "Now add a turbopack.resolveAlias entry that maps '@/ui' to './src/components/ui'",
-          "Create a component at src/components/ui/Badge.tsx and import it in a page using import { Badge } from '@/ui/Badge'",
-          "Verify it resolves correctly in the browser",
+          "Open `app/page.tsx` in your editor. Change the heading text to something different and save the file. Watch the browser — the change appears almost instantly without a full page reload. That is Hot Module Replacement (HMR).",
+          "Now open `app/globals.css` and change a color value (for example, change a background color). Save the file. You should see the style update in the browser right away, without losing your scroll position.",
+          "Look at the terminal where `npm run dev` is running. After each save, you should see a message like `compiled in Xms`. The time should be very small, often under 100ms.",
+          "Try a bigger change: add a new paragraph with some text to `app/page.tsx`. Save and watch. Even with new content, the update should appear in under 200 milliseconds. This speed is what makes Turbopack great for development.",
         ]}
       />
     </div>

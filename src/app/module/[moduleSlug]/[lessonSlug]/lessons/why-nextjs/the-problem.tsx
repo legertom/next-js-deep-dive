@@ -359,16 +359,13 @@ const Dashboard = React.lazy(() => import('./Dashboard'));
       <h2>Hands-On: See the Problem Yourself</h2>
 
       <HandsOn
-        title="Measure a SPA's loading performance"
+        title="Create your Next.js blog project"
+        projectStep="Step 1 of 32 — Blog Platform Project"
         steps={[
-          "Open Chrome DevTools (F12) on any React SPA (or create one with `npm create vite@latest my-app -- --template react-ts`)",
-          "Go to the Network tab and enable 'Slow 3G' throttling in the dropdown",
-          "Hard refresh the page (Cmd+Shift+R / Ctrl+Shift+R) and watch the timeline",
-          "Notice: the HTML arrives almost instantly but is empty. Then a large .js bundle downloads. Only after it executes do you see content.",
-          "Now go to the Performance tab, check 'Screenshots', and record a page load",
-          "Look at the 'Frames' row — count how many seconds the page is blank before First Contentful Paint (FCP)",
-          "Right-click the page → View Source. Notice there's no meaningful content in the HTML.",
-          "Compare this with a Next.js site (e.g., vercel.com): View Source shows full HTML content immediately available without JS.",
+          "Open your terminal and run: `npx create-next-app@latest my-blog --ts --app --tailwind` (press Enter to accept all defaults)",
+          "Run: `cd my-blog && npm run dev` — then open http://localhost:3000 in your browser. You should see the Next.js welcome page.",
+          "Right-click anywhere on the page and choose 'View Page Source'. Notice that the HTML contains real content — headings, text, links. This is server rendering in action.",
+          "Now open `app/page.tsx` in your editor. Change the heading text to 'My Blog' and save. The browser updates instantly! Keep this project open — you will build on it for the entire course.",
         ]}
       />
 

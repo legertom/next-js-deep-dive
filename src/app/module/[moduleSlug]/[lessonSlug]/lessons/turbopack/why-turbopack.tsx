@@ -211,15 +211,14 @@ Next.js 16  → Turbopack is the DEFAULT for both dev and build`}
       />
 
       <HandsOn
-        title="Measure the Speed Difference"
+        title="See Turbopack speed in your blog"
+        projectStep="Step 21 of 32 — Blog Platform Project"
+        projectContext="Open your my-blog project folder in your terminal. Make sure nothing is running yet."
         steps={[
-          "Create a new Next.js 16 app: npx create-next-app@latest turbo-test",
-          "Generate 50+ components by creating files in a loop (or use a script): each component should import from a shared module",
-          "Run next dev and note the cold start time in the terminal output",
-          "Edit a deeply nested component and observe how quickly Fast Refresh updates the browser (check the terminal for timing)",
-          "Run next build and note the total build time",
-          "Now run next build --webpack and compare the build time with Turbopack's",
-          "Observe the difference: Turbopack should be noticeably faster, especially on incremental rebuilds during dev",
+          "Run `npm run dev` and look at the terminal. You should see a line like `Ready in Xms` — that number is how long Turbopack took to start. It should be just a few seconds.",
+          "Now stop the server with Ctrl+C. Run `npx next dev --webpack` to start with the old bundler instead. Compare the `Ready in` time — webpack is usually slower.",
+          "Stop that server with Ctrl+C. Run `npm run dev` again to go back to Turbopack. You have been using Turbopack this whole time — it is the default in Next.js 16!",
+          "Open http://localhost:3000 in your browser and click around to a few pages. Each page compiles on demand, so the first visit is the slowest. After that, it is instant.",
         ]}
       />
     </div>

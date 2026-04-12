@@ -326,14 +326,15 @@ export default nextConfig;`}
       />
 
       <HandsOn
-        title="Deploy Your App Three Ways"
+        title="Deploy your blog to the internet"
+        projectStep="Step 31 of 32 — Blog Platform Project"
+        projectContext="Your blog is ready to ship! Time to put it on the internet."
         steps={[
-          "Run next build and examine the .next/ directory. Note the server/ and static/ subdirectories and their contents.",
-          "Start a production server with next start and verify it works on localhost:3000. Test that API routes and image optimization function correctly.",
-          "Add output: 'standalone' to next.config.ts, rebuild, and inspect .next/standalone/. Note the server.js file and the minimal node_modules.",
-          "Create the Dockerfile from this lesson. Build the image with docker build -t my-app . and run it with docker run -p 3000:3000 my-app.",
-          "Compare the Docker image size with and without the standalone option (check using docker images).",
-          "(Optional) Deploy to Vercel by pushing to a GitHub repo and connecting it at vercel.com/new. Compare the deployment experience to self-hosting.",
+          "If you have not already, create a GitHub repository and push your blog project to it.",
+          "Go to vercel.com and sign up (or log in) with your GitHub account.",
+          "Click 'Add New Project', find your blog repository, and click 'Import'. Vercel detects it is a Next.js app automatically.",
+          "Click 'Deploy' and wait about a minute. When it is done, you will get a live URL. Open it — your blog is now live on the internet!",
+          "Try pushing a new commit to your repository. Vercel will automatically build and deploy the update.",
         ]}
       />
     </div>

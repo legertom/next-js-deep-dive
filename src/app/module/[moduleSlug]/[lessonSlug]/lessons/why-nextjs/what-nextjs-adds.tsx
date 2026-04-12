@@ -545,15 +545,14 @@ export function middleware(request: NextRequest) {
       />
 
       <HandsOn
-        title="Compare client-rendered vs. server-rendered pages"
+        title="Add pages to your blog and see server rendering"
+        projectStep="Step 2 of 32 — Blog Platform Project"
+        projectContext="Open the my-blog project you created in Step 1. Make sure the dev server is running with `npm run dev`."
         steps={[
-          "Create a new Next.js 16 app: `npx create-next-app@latest my-comparison --ts --app`",
-          "Open `app/page.tsx` — this is a Server Component by default. Add: `const time = new Date().toISOString();` and render it in a <p> tag.",
-          "Run `npm run dev` and view the page. Right-click → View Source. Notice the time is IN the HTML source — it was rendered on the server.",
-          "Now create `app/client-time/page.tsx` with `'use client'` at the top. Use `useState` and `useEffect` to show the time after mount.",
-          "View that page's source — the time will NOT be in the HTML. It only appears after JavaScript executes.",
-          "Run `npm run build` and look at the output. Notice which routes are marked as Static (circle) vs. Dynamic (lambda). Next.js determined this automatically.",
-          "Check the `.next/static/chunks` directory — notice how code is split into separate files per route.",
+          "Open `app/page.tsx`. Replace all the default content inside the return statement with: `<div><h1>My Blog</h1><p>Welcome to my blog! Built with Next.js.</p></div>` — save and check the browser.",
+          "Create a new folder called `about` inside the `app` folder, then create a file `app/about/page.tsx`. Add a function that returns `<div><h1>About Me</h1><p>Hi, I am learning Next.js!</p></div>`. Don't forget `export default`.",
+          "Visit http://localhost:3000/about in your browser. You should see your About page. Right-click the page and choose 'View Page Source' — notice the text is right there in the HTML.",
+          "Try visiting http://localhost:3000/fake-page — you will see a 404 page. Next.js only creates pages for folders that have a `page.tsx` file inside them.",
         ]}
       />
 

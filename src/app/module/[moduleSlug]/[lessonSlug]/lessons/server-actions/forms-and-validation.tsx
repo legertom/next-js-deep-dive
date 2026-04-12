@@ -348,15 +348,15 @@ export function CreatePostForm() {
       />
 
       <HandsOn
-        title="Build a Validated Contact Form"
+        title={'Build a "New Post" form with a Server Action'}
+        projectStep="Step 28 of 32 — Blog Platform Project"
+        projectContext="You have a working Server Action in app/actions.ts from the last exercise. Now turn it into a real form that creates blog posts."
         steps={[
-          "Create a Server Action in app/actions.ts that accepts name, email, and message fields",
-          "Add Zod validation: name (2-50 chars), email (valid format), message (10-1000 chars)",
-          "Return field-level errors in a structured object like { errors: { fieldName: string[] } }",
-          "Create a client component form that uses useActionState to display errors and pending state",
-          "Show a disabled submit button with 'Sending...' text while the action is pending",
-          "Test progressive enhancement: disable JavaScript in your browser's DevTools and verify the form still submits",
-          "Bonus: Add a success message that appears after successful submission, then auto-clears after 3 seconds",
+          "Create a new page at app/posts/new/page.tsx. Add a <form> with two inputs: <input name='title' placeholder='Post title' /> and <textarea name='content' placeholder='Write your post...' />. Add a <button type='submit'>Publish</button> at the end.",
+          "In app/actions.ts, update your createPost function to read both fields: const title = formData.get('title') and const content = formData.get('content'). For now, just console.log them both. Pass createPost to the form's action prop.",
+          "Go to /posts/new in your browser, fill in both fields, and click Publish. Check your terminal — you should see the title and content printed there.",
+          "Now add a redirect after the action succeeds: import { redirect } from 'next/navigation' at the top of actions.ts, and add redirect('/posts') as the last line of createPost. Submit the form again — you should be sent back to the posts page automatically.",
+          "Try submitting the form with empty fields. Notice it still works — in a real app you would add validation. For now, add the HTML required attribute to both inputs so the browser blocks empty submissions.",
         ]}
       />
     </div>

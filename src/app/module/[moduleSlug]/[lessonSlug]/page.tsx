@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getLesson, getAdjacentLessons, modules } from "@/lib/course-data";
 import { LessonNav } from "@/components/lesson-nav";
+import { LessonChat } from "@/components/lesson-chat";
 
 // Lesson content imports
 import { TheProblem } from "./lessons/why-nextjs/the-problem";
@@ -143,6 +144,14 @@ export default async function LessonPage({ params }: { params: Promise<{ moduleS
         currentKey={`${moduleSlug}/${lessonSlug}`}
         prev={adjacent.prev}
         next={adjacent.next}
+      />
+
+      {/* AI Chat */}
+      <LessonChat
+        moduleTitle={mod.title}
+        lessonTitle={lesson.title}
+        lessonDescription={lesson.description}
+        lessonKey={`${moduleSlug}/${lessonSlug}`}
       />
     </div>
   );

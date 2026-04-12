@@ -341,12 +341,15 @@ export function Greeting() {
       />
 
       <HandsOn
-        title="Trace the client boundary"
+        title={'Add a "Like" button to blog posts'}
+        projectStep="Step 10 of 32 — Blog Platform Project"
+        projectContext="Open your my-blog project. Your posts page displays a list of posts from a data file. Now you will add a button that users can click."
         steps={[
-          "Create a Server Component page that renders a heading, a paragraph, and a small interactive Counter Client Component.",
-          "Run `next build` and look at the output. Note the JS bundle sizes -- the page itself should contribute minimal JS.",
-          "Now move `\"use client\"` to the page level. Rebuild and compare bundle sizes. Notice how the entire page's code is now in the client bundle.",
-          "Try importing a large library (like `date-fns`) inside your Client Component vs inside a Server Component. Check the bundle analyzer to see where the library ends up.",
+          "Create a new file at app/components/like-button.tsx. On the very first line, type: 'use client' — this tells Next.js this component needs to run in the browser.",
+          "Paste this code below the 'use client' line: import { useState } from 'react'; export function LikeButton() { const [likes, setLikes] = useState(0); return <button onClick={() => setLikes(likes + 1)}>Like ({likes})</button>; }",
+          "Open app/posts/page.tsx and import your new component at the top: import { LikeButton } from '../components/like-button'. Then add <LikeButton /> next to each post title inside your list.",
+          "Refresh http://localhost:3000/posts and click the Like button a few times. The number should go up each time you click. This works because the button runs in the browser where it can track clicks.",
+          "Open the browser DevTools Console and add console.log('Like button loaded') inside LikeButton. Refresh the page — this time the message DOES appear in the browser console, because this is a Client Component.",
         ]}
       />
     </div>

@@ -424,13 +424,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       />
 
       <HandsOn
-        title="Build the donut pattern"
+        title="Pass server data to the Like button"
+        projectStep="Step 11 of 32 — Blog Platform Project"
+        projectContext="Open your my-blog project. You have a posts page (Server Component) and a LikeButton (Client Component). Now you will connect them by passing data from the server to the client."
         steps={[
-          "Create a `Tabs` Client Component that manages which tab is active (useState). It should accept a `tabs: { label: string; content: React.ReactNode }[]` prop.",
-          "Create three Server Components that each fetch different data (mock it with delays): `RecentOrders`, `Analytics`, `UserActivity`.",
-          "In your page (Server Component), compose them together: pass the server components as the `content` for each tab.",
-          "Verify: the tab switching is instant and client-side, but the content was server-rendered with direct data access. Check the Network tab -- no JS bundles for the server components.",
-          "Bonus: try importing one of the Server Components directly inside the Tabs Client Component. Observe the error.",
+          "Open app/components/like-button.tsx. Change it to accept a prop: export function LikeButton({ postTitle }: { postTitle: string }). Update the button text to show the title: <button onClick={() => setLikes(likes + 1)}>Like {postTitle} ({likes})</button>",
+          "Open app/posts/page.tsx. Where you render <LikeButton />, pass the post title as a prop: <LikeButton postTitle={post.title} />. This is how a Server Component sends data to a Client Component — through simple props like strings and numbers.",
+          "Refresh http://localhost:3000/posts — each Like button should now show the post title. The title was loaded on the server and passed to the button that runs in the browser.",
+          "Try passing something that cannot be sent from server to client. Add a prop like formatter={() => {}} to LikeButton. You will see an error because functions cannot be passed from server to client — only simple values like strings, numbers, and arrays.",
         ]}
       />
     </div>

@@ -337,14 +337,14 @@ export function WebVitals() {
       />
 
       <HandsOn
-        title="Optimize an Image-Heavy Page"
+        title="Add next/image and next/font to your blog"
+        projectStep="Step 30 of 32 — Blog Platform Project"
+        projectContext="Your blog is feature-complete. Now make it faster with two quick optimizations."
         steps={[
-          "Create a page at app/gallery/page.tsx with 6 images using the next/image component",
-          "Add the priority prop to only the first two images (above the fold) and verify with DevTools Network tab that they load immediately",
-          "Configure next.config.ts with remotePatterns for an external image CDN (use picsum.photos for testing)",
-          "Add next/font with Inter and configure it as a CSS variable in your root layout",
-          "Install @next/bundle-analyzer, run ANALYZE=true npm run build, and identify the largest module in your client bundle",
-          "Run Lighthouse on your gallery page and record LCP, CLS, and INP scores. Try removing priority from the hero image and note the LCP difference",
+          "Find any <img> tag in your blog (or add one to your home page). Replace it with the Next.js Image component: import Image from 'next/image' at the top, then use <Image src='/your-image.jpg' alt='Blog hero' width={800} height={400} />. You should see the image load in a modern format like WebP automatically.",
+          "Add the priority prop to that Image: <Image ... priority />. This tells Next.js to load it right away instead of lazy-loading. This is important for the first image users see on the page.",
+          "Open app/layout.tsx and add a Google Font. Import it at the top: import { Inter } from 'next/font/google'. Then create it: const inter = Inter({ subsets: ['latin'] }). Add className={inter.className} to your <body> tag.",
+          "Save and check your blog in the browser. The font should change to Inter. Open DevTools and look at the Network tab — notice there is no extra request for the font file. Next.js inlines it at build time!",
         ]}
       />
     </div>

@@ -225,14 +225,14 @@ cacheLife({ expire: 3600 }) // 1 hour
       />
 
       <HandsOn
-        title="Experiment with Cache Lifetimes"
+        title="Control how long your blog page stays cached"
+        projectStep="Step 17 of 32 — Blog Platform Project"
+        projectContext={'Your posts page is cached with "use cache". Now you will control how long that cache lasts.'}
         steps={[
-          "Create a cached component that displays the current timestamp using new Date().toISOString()",
-          "First, use cacheLife('max') and observe how the timestamp stays frozen across refreshes",
-          "Change to cacheLife({ expire: 10 }) for a 10-second cache",
-          "Refresh rapidly -- notice the timestamp stays the same within the 10-second window",
-          "Wait 10+ seconds and refresh -- observe the stale-while-revalidate behavior (first request after expiry may show stale, next shows fresh)",
-          "Define a custom 'ultra-short' profile in next.config.ts with expire: 5 and test it",
+          "Open app/posts/page.tsx. Below the \"use cache\" line, add: import { cacheLife } from 'next/cache' at the top of the file, then call cacheLife('hours') inside the component (before any JSX).",
+          "Refresh the page a few times. The timestamp still stays the same, but now the cache will automatically expire after a few hours instead of lasting forever.",
+          "Try changing 'hours' to 'days' or 'max' and restarting the dev server each time. Notice that 'max' keeps the cache the longest, 'hours' the shortest.",
+          "Change it back to cacheLife('hours') for the posts page — this is a good fit since new blog posts could be added throughout the day.",
         ]}
       />
     </div>

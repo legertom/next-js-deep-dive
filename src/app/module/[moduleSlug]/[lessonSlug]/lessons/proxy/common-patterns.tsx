@@ -375,14 +375,14 @@ export async function proxy(request: NextRequest) {
       />
 
       <HandsOn
-        title="Build a multi-pattern proxy"
+        title="Add a redirect rule in proxy.ts"
+        projectStep="Step 20 of 32 — Blog Platform Project"
+        projectContext="Your proxy.ts file logs every request. Now you will add a simple redirect."
         steps={[
-          "Create a proxy.ts file at the root of your Next.js project",
-          "Implement a basic auth check that redirects unauthenticated users from /dashboard to /login, preserving the original URL as a ?redirect= query parameter",
-          "Add a rewrite rule: if a cookie named 'beta' is set to 'true', rewrite /pricing to /pricing-beta",
-          "Add rate limiting for /api/* routes using an in-memory Map (for development — use Redis in production)",
-          "Test each pattern by visiting the routes in your browser and inspecting the Network tab to see redirects vs rewrites",
-          "Verify that the order of operations is correct: rate limit -> auth -> rewrite",
+          "Open proxy.ts. Before the return NextResponse.next() line, add this check: if (request.nextUrl.pathname === '/old-blog') { return NextResponse.redirect(new URL('/posts', request.url)); }",
+          "Save the file and visit http://localhost:3000/old-blog in your browser. You should be automatically sent to the /posts page.",
+          "Check the browser address bar — it should now show /posts, not /old-blog. This is a redirect: the browser URL changes to the new location.",
+          "Look at your terminal logs. You should see the request to /old-blog was logged before the redirect happened — the proxy ran first, then decided where to send the user.",
         ]}
       />
     </div>

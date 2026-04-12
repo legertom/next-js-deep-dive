@@ -253,14 +253,15 @@ export async function updateProfile(formData: FormData) {
       />
 
       <HandsOn
-        title="Create Your First Server Action"
+        title="Create your first Server Action"
+        projectStep="Step 27 of 32 — Blog Platform Project"
+        projectContext="Open your my-blog project with npm run dev running."
         steps={[
-          "Create a new file app/actions.ts with 'use server' at the top",
-          "Write a createTodo action that accepts FormData, extracts a 'title' field, and logs it to the console",
-          "Create a page with a form whose action prop points to your Server Action",
-          "Submit the form and verify the log appears in your terminal (server), not the browser console",
-          "Add input validation using Zod — reject titles shorter than 3 characters and return an error object",
-          "Bonus: Add an auth check that throws if no session exists (mock it with a hardcoded check for now)",
+          "Create a new file at app/actions.ts. Add 'use server' as the very first line. Then write a simple function: export async function sayHello() { console.log('Hello from the server!') }",
+          "Open app/page.tsx and import your action: import { sayHello } from './actions'. Add a <form action={sayHello}><button type='submit'>Say Hello</button></form> to the page.",
+          "Click the button in the browser. Check your terminal — you should see 'Hello from the server!' printed there, NOT in the browser console.",
+          "Now make it useful: rename the function to createPost, add a formData parameter (formData: FormData), and console.log(formData.get('title')). Add an <input name='title' /> inside the form before the button.",
+          "Type a title, click submit, and check your terminal again. You should see whatever you typed printed on the server. That is a Server Action — a function that runs on the server when triggered from the browser!",
         ]}
       />
     </div>

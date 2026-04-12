@@ -319,15 +319,14 @@ function GoodComponent({ items }: { items: Item[] }) {
       />
 
       <HandsOn
-        title="Observe the Compiler in Action"
+        title="Turn on the React Compiler"
+        projectStep="Step 26 of 32 — Blog Platform Project"
+        projectContext="Your blog should be running with `npm run dev`. Open `next.config.ts` in your editor."
         steps={[
-          "Create a Next.js 16 project with reactCompiler: true in next.config.ts",
-          "Build a parent component that passes an inline object and callback to a child",
-          "Add console.log('Child rendered') in the child component",
-          "Without the compiler, the child would re-render on every parent render (new object/function references)",
-          "With the compiler enabled, observe that the child only re-renders when the actual data changes",
-          "Try introducing a prop mutation (e.g., items.push()) and check the compiler's ESLint warnings",
-          "Fix the mutation and verify the compiler optimizes correctly again",
+          "In `next.config.ts`, add `reactCompiler: true` inside the config object (next to any other options you already have). Save the file. That is the only setup needed.",
+          "Restart your dev server with `npm run dev`. Open your blog in the browser. Everything should look and work exactly the same — the compiler optimizes your code behind the scenes without changing behavior.",
+          "If you have any `useMemo` or `useCallback` calls in your components, try removing one of them. Save and test — the page should still work the same because the compiler now handles that memoization for you automatically.",
+          "The React Compiler only works correctly when your components follow the Rules of React: do not mutate props or state directly. For example, never write `items.sort()` — always copy first with `[...items].sort()`. Your blog already follows these rules, so the compiler works out of the box!",
         ]}
       />
     </div>

@@ -401,14 +401,14 @@ export default async function DocsPage({
       />
 
       <HandsOn
-        title="Build a Dynamic Docs Site"
+        title="Create pages for individual blog posts"
+        projectStep="Step 5 of 32 — Blog Platform Project"
+        projectContext="Your blog has `app/page.tsx` (home), `app/about/page.tsx`, and `app/posts/page.tsx` (post list) from the previous steps."
         steps={[
-          "Create app/docs/[[...slug]]/page.tsx that handles both /docs and /docs/any/nested/path",
-          "Inside the page, await params and display the slug array (or 'Docs Home' if undefined)",
-          "Test with /docs, /docs/intro, /docs/guides/routing — all should work",
-          "Create route groups: (marketing) with a simple layout and (app) with a sidebar layout",
-          "Move some pages into each group and verify URLs are not affected by the group names",
-          "Add a parallel route @sidebar to the app group's layout that renders navigation dynamically",
+          "Create a new folder with square brackets in the name: `app/posts/[slug]/` — then add a file `app/posts/[slug]/page.tsx` inside it. The square brackets tell Next.js this part of the URL can be anything.",
+          "In that file, export a default async function. It receives a `params` prop — add `const { slug } = await params;` at the top, then return `<div><h1>{slug}</h1><p>This is the blog post called {slug}.</p></div>`.",
+          "Visit http://localhost:3000/posts/my-first-post in your browser. You should see 'my-first-post' as the heading. Now try http://localhost:3000/posts/hello-world — the same page works with any slug!",
+          "Go back to `app/posts/page.tsx` and wrap each post title in an `<a>` tag linking to its post page. For example: `<li><a href='/posts/my-first-post'>My First Post</a></li>`. Click the links to make sure they work.",
         ]}
       />
     </div>

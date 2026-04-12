@@ -150,13 +150,14 @@ export default nextConfig`}
       />
 
       <HandsOn
-        title="See Dynamic-by-Default in Action"
+        title="See that your blog is dynamic by default"
+        projectStep="Step 15 of 32 — Blog Platform Project"
+        projectContext="Open your my-blog project. Make sure npm run dev is running."
         steps={[
-          "Create a new Next.js 16 app with `npx create-next-app@latest`",
-          "In app/page.tsx, fetch the current time from a Server Component: `const time = new Date().toISOString()`",
-          "Render the time on the page and run `next dev`",
-          "Refresh the page multiple times -- notice the time updates every time (dynamic by default!)",
-          "Now add `\"use cache\"` at the top of the page component and refresh -- notice the time is now frozen (cached)",
+          "Open app/posts/page.tsx and add this line inside the component: const now = new Date().toLocaleTimeString() — then render it somewhere on the page, like <p>Rendered at: {now}</p>",
+          "Save the file and open http://localhost:3000/posts in your browser. You should see the current time displayed on the page.",
+          "Refresh the page several times and watch the time. It changes on every refresh — this means the page is rendered fresh for each request.",
+          "This is the default behavior in Next.js 16: every page is dynamic. In the next lesson, you will learn how to cache pages so they load instantly.",
         ]}
       />
     </div>

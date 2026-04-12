@@ -258,14 +258,14 @@ export default async function ProductPage({
       />
 
       <HandsOn
-        title="Convert a Client-Side Fetch to a Server Component"
+        title="Fetch posts from a real API"
+        projectStep="Step 12 of 32 — Blog Platform Project"
+        projectContext="Open your my-blog project. Your posts page currently imports data from a local file. Now you will fetch posts from a free public API instead."
         steps={[
-          "Create a new file at app/posts/page.tsx",
-          "Write an async default export function that fetches from https://jsonplaceholder.typicode.com/posts?_limit=5",
-          "Await the response and render the posts as a list — no useState, no useEffect",
-          "Run the app and inspect the network tab: notice there is NO fetch request from the browser",
-          "View the page source (Ctrl+U) to confirm the post content is in the initial HTML",
-          "Try adding a second component that fetches the same URL and verify no duplicate request in server logs",
+          "Open app/posts/page.tsx. Remove the import of your local posts data. Make the function async by adding the async keyword: export default async function PostsPage()",
+          "Inside the function, fetch posts from a public API: const res = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=5'); const posts = await res.json(); — no useState or useEffect needed, just a normal await.",
+          "Update your JSX to display the fetched posts: {posts.map((post: any) => <li key={post.id}>{post.title}</li>)}. Refresh http://localhost:3000/posts — you should see 5 post titles from the API.",
+          "Right-click the page and choose View Page Source. You should see the post titles right there in the HTML. The server fetched the data and sent finished HTML to the browser — the browser never had to call the API itself.",
         ]}
       />
 

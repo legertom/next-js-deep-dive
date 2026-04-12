@@ -218,14 +218,14 @@ and provide specific, actionable guidance.`}
       </p>
 
       <HandsOn
-        title="Your Graduation Project"
+        title="Celebrate and plan your next project"
+        projectStep="Step 32 of 32 — Blog Platform Project"
+        projectContext="You did it! Your blog is live on the internet. Take a moment to appreciate what you built from scratch."
         steps={[
-          "Choose a project idea that excites you: a blog platform, a SaaS dashboard, an e-commerce store, or a tool you wish existed.",
-          "Set up the project with create-next-app@latest and immediately configure next.config.ts with your production settings (standalone output, security headers, image domains).",
-          "Implement at least 3 dynamic routes, 2 layouts, and 1 parallel route or intercepting route.",
-          "Use Server Components for data display and Client Components only where you need interactivity. Verify with React DevTools that your server/client boundary is intentional.",
-          "Add Server Actions for at least one mutation (create, update, or delete) with optimistic UI feedback.",
-          "Deploy to Vercel or build a Docker image. Share the URL with someone and ask them to use it on mobile. Check your Core Web Vitals.",
+          "Open your deployed blog URL and click through every page. Make sure everything works — the home page, individual posts, and creating a new post. You built all of this!",
+          "Open your blog on your phone. It works there too because Next.js handles responsive rendering for you.",
+          "Think about what you want to build next. It could be a portfolio site, a project tracker, or anything you want to exist in the world. You now know routing, server components, data fetching, server actions, and deployment — that is everything you need.",
+          "Push your final code to GitHub. Your own blog project is the best reference you will ever have for Next.js patterns. When you forget how something works, look at your own code first.",
         ]}
       />
     </div>

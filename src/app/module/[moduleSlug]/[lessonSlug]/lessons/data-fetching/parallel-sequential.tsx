@@ -354,14 +354,14 @@ async function AlbumGrid({ albumsPromise }: { albumsPromise: Promise<Album[]> })
       />
 
       <HandsOn
-        title="Fix a Waterfall"
+        title="Fetch two things at the same time"
+        projectStep="Step 13 of 32 — Blog Platform Project"
+        projectContext="Open your my-blog project. Your posts page fetches posts from an API. Now you will also fetch user data, and learn how to do both at the same time instead of one after the other."
         steps={[
-          "Create app/waterfall-demo/page.tsx with three sequential awaits: fetchUser (sleep 200ms), fetchPosts (sleep 500ms), fetchComments (sleep 300ms). Log timestamps to see the total time.",
-          "Visit the page and measure the load time in DevTools — it should be ~1000ms",
-          "Refactor to use Promise.all for all three fetches since they're independent",
-          "Reload and verify the total time drops to ~500ms (the slowest single fetch)",
-          "Now create a true dependency: make fetchPosts require the user.id from fetchUser. Structure the code so fetchUser runs first, then fetchPosts and fetchComments run in parallel with each other",
-          "Verify the new total is ~700ms (200ms for user, then max(500ms, 300ms) for the parallel pair)",
+          "Open app/posts/page.tsx. Add a second fetch below your posts fetch: const usersRes = await fetch('https://jsonplaceholder.typicode.com/users?_limit=3'); const users = await usersRes.json(); Display the users below your posts list: <h2>Authors</h2><ul>{users.map((u: any) => <li key={u.id}>{u.name}</li>)}</ul>",
+          "Add console.log('Start:', Date.now()) before the first fetch and console.log('End:', Date.now()) after the second fetch. Check the terminal — the total time is the sum of both fetches because they run one after the other.",
+          "Now change both fetches to run at the same time using Promise.all: const [postsRes, usersRes] = await Promise.all([ fetch('https://jsonplaceholder.typicode.com/posts?_limit=5'), fetch('https://jsonplaceholder.typicode.com/users?_limit=3') ]); Then parse both: const posts = await postsRes.json(); const users = await usersRes.json();",
+          "Check the terminal timestamps again. The total time should now be roughly equal to whichever fetch was slower, not the sum of both. When two fetches do not depend on each other, always use Promise.all to run them at the same time.",
         ]}
       />
 

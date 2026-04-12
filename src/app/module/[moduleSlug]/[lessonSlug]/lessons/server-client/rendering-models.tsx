@@ -293,12 +293,14 @@ export default function ProductPage({ params }: { params: { id: string } }) {
       />
 
       <HandsOn
-        title="See streaming in action"
+        title="See where your code runs"
+        projectStep="Step 8 of 32 — Blog Platform Project"
+        projectContext="Open your my-blog project from the previous lessons."
         steps={[
-          "Create a new App Router page with three async components, each with a different artificial delay (use `await new Promise(r => setTimeout(r, ms))`).",
-          "Wrap each in its own Suspense boundary with a visible skeleton.",
-          "Open the Network tab in DevTools and watch the HTML response. You'll see the document stay open as chunks arrive over time.",
-          "Now remove the Suspense boundaries. Notice how the page now waits for the slowest component before showing anything.",
+          "Open app/posts/page.tsx and add this line at the top of the function: console.log('This runs on the server!')",
+          "Refresh http://localhost:3000/posts in the browser. Now check your terminal (where npm run dev is running) — you should see the log message there.",
+          "Open your browser's DevTools Console tab. Notice the message is NOT in the browser — it only appears in the terminal. That is because this component runs on the server.",
+          "Now open app/layout.tsx and add a different log: console.log('Layout is rendering!'). Refresh any page and check the terminal again — you should see both messages printed in the terminal, not in the browser.",
         ]}
       />
     </div>

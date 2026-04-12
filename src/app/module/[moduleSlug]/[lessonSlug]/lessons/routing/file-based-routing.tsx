@@ -225,14 +225,14 @@ export async function POST(request: Request) {
       />
 
       <HandsOn
-        title="Build a Blog Structure"
+        title="Add a blog posts page"
+        projectStep="Step 4 of 32 — Blog Platform Project"
+        projectContext="Your blog has `app/page.tsx` (home) and `app/about/page.tsx` from the previous steps."
         steps={[
-          "Create a new Next.js 16 app with: npx create-next-app@latest my-blog --app",
-          "Inside app/, create folders: blog/, blog/[slug]/, and about/",
-          "Add a page.tsx to each folder with a simple component that displays the route name",
-          "Run the dev server and visit /blog, /blog/hello-world, and /about to verify each route works",
-          "Try creating a file app/blog/format-date.ts and confirm that /blog/format-date returns a 404",
-          "Add an app/api/posts/route.ts that returns a JSON array, then visit /api/posts in the browser",
+          "Create a new folder `app/posts/` and add a file `app/posts/page.tsx`. Make it export a default function that returns a list of 3 blog post titles using `<ul>` and `<li>` tags (just hardcoded text like 'My First Post', 'Learning Next.js', 'Why I Love React').",
+          "Start the dev server with `npm run dev` and visit http://localhost:3000/posts. You should see your list of three post titles.",
+          "Notice the pattern: the folder name `posts` becomes the URL path `/posts`, and the `page.tsx` file inside it is what gets displayed. No router setup needed!",
+          "Try creating a file `app/posts/helpers.ts` with `export function hello() { return 'hi'; }` inside it. Now visit http://localhost:3000/posts/helpers — you will get a 404. Only `page.tsx` files create pages, so you can safely put other files next to your pages.",
         ]}
       />
     </div>

@@ -191,13 +191,14 @@ export const config = {
       />
 
       <HandsOn
-        title="Migrate middleware.ts to proxy.ts"
+        title="Create a simple proxy.ts that logs every request"
+        projectStep="Step 19 of 32 — Blog Platform Project"
+        projectContext="Open your my-blog project. You will create a proxy.ts file at the root of your project (next to next.config.ts)."
         steps={[
-          "If you have an existing middleware.ts file, rename it to proxy.ts",
-          "Rename the exported function from 'middleware' to 'proxy'",
-          "Remove any Edge-compatible workarounds — for example, replace 'jose' (Edge JWT library) with the full 'jsonwebtoken' package",
-          "Add a Node.js-only operation to verify it works: try reading an environment variable from process.env or using crypto.randomUUID()",
-          "Run your app and confirm requests still flow through the proxy correctly",
+          "Create a new file called proxy.ts in the root of your project (same folder as next.config.ts). Paste this code: import { NextRequest, NextResponse } from 'next/server'; export function proxy(request: NextRequest) { console.log('Request:', request.method, request.nextUrl.pathname); return NextResponse.next(); }",
+          "Save the file and open your blog in the browser. Click around to a few different pages.",
+          "Look at your terminal where npm run dev is running. You should see a log line printed for every page you visited, like: Request: GET /posts",
+          "This is your proxy in action — it runs before every request reaches your pages. In the next lesson, you will use it to redirect users.",
         ]}
       />
     </div>

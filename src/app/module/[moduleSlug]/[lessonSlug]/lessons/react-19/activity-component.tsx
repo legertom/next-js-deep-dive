@@ -268,15 +268,15 @@ export default function DashboardLayout({
       />
 
       <HandsOn
-        title="Build a Stateful Tab Panel with Activity"
+        title="Hide and show content with Activity"
+        projectStep="Step 24 of 32 — Blog Platform Project"
+        projectContext="Your blog should be running with `npm run dev`. You will create a small tabbed component to try out Activity."
         steps={[
-          "Create a new client component with 3 tabs, each containing a form with text inputs",
-          "First, implement tabs with conditional rendering (unmounting inactive tabs)",
-          "Type something into tab 1's form, switch to tab 2, then back — observe the state is lost",
-          "Now refactor to use <Activity mode={...}> for each tab panel",
-          "Repeat the test — observe that form state is preserved across tab switches",
-          "Open DevTools and verify that hidden tabs have display: none applied",
-          "Bonus: Add a useEffect with a console.log in one tab, and verify the cleanup runs when hidden",
+          "Create a new file `app/activity-demo/page.tsx`. Add a client component with two buttons (Tab A and Tab B) and a state variable to track which tab is active. For now, use a simple conditional: `{activeTab === 0 ? <div>Tab A content</div> : <div>Tab B content</div>}`. Add a text input inside Tab A. Save and open /activity-demo in your browser.",
+          "Type something in the text input on Tab A. Click Tab B, then click Tab A again. Notice your typed text is gone — the component was unmounted and remounted, so the state was lost.",
+          "Now refactor: import `Activity` from `\"react\"`. Replace the conditional rendering with two Activity components: `<Activity mode={activeTab === 0 ? \"visible\" : \"hidden\"}><div>Tab A with input</div></Activity>` and the same for Tab B.",
+          "Type something in the text input on Tab A again. Switch to Tab B and back. Your typed text is still there! Activity hides the content with `display: none` instead of unmounting it, so all state is preserved.",
+          "Right-click the page and choose Inspect. When Tab B is active, find the Tab A content in the Elements panel — it is still in the DOM but has `display: none` on it.",
         ]}
       />
     </div>

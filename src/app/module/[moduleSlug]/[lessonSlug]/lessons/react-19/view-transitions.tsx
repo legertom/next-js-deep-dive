@@ -238,14 +238,14 @@ export function Tabs({ tabs }: { tabs: Tab[] }) {
       />
 
       <HandsOn
-        title="Add Page Transitions to a Next.js App"
+        title="Add a fade transition between pages"
+        projectStep="Step 23 of 32 — Blog Platform Project"
+        projectContext="Your blog should be running with `npm run dev`. Open `app/layout.tsx` in your editor."
         steps={[
-          "Open your root layout file (app/layout.tsx)",
-          "Import ViewTransition from 'react'",
-          "Wrap the {children} slot with <ViewTransition>",
-          "Add a CSS file with custom ::view-transition-old and ::view-transition-new animations",
-          "Navigate between routes and observe the cross-fade animation",
-          "Bonus: Add a shared element transition by giving the same ViewTransition name to an element on two different pages",
+          "At the top of `app/layout.tsx`, add this import: `import { ViewTransition } from \"react\";`. Then find where `{children}` is rendered and wrap it like this: `<ViewTransition>{children}</ViewTransition>`. Save the file.",
+          "Open your blog in the browser and click between the home page and a blog post. You should see a gentle cross-fade animation as the page content changes. That is the default view transition.",
+          "Open `app/globals.css` and add these styles at the bottom: `::view-transition-old(root) { animation: fade-out 200ms ease-in; }` and `::view-transition-new(root) { animation: fade-in 200ms ease-out; }`. Save and try navigating again — the fade should feel smoother.",
+          "Click the back button in your browser. The fade transition works for back navigation too. If your browser does not support View Transitions (older Firefox), the pages will still update normally — just without animation.",
         ]}
       />
     </div>

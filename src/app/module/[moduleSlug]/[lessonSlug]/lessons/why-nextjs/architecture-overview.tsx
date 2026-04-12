@@ -686,17 +686,14 @@ export function LikeButton({ postId, initialLikes }) {
       />
 
       <HandsOn
-        title="Explore the Next.js build output"
+        title="Build your blog and explore the output"
+        projectStep="Step 3 of 32 — Blog Platform Project"
+        projectContext="Your blog should have `app/page.tsx` (home) and `app/about/page.tsx` from the previous lesson."
         steps={[
-          "Create a Next.js app (or use an existing one): `npx create-next-app@latest architecture-demo --ts --app`",
-          "Add a few pages: `app/page.tsx`, `app/about/page.tsx`, `app/blog/[slug]/page.tsx`",
-          "In `app/blog/[slug]/page.tsx`, add an async Server Component that simulates a data fetch: `await new Promise(r => setTimeout(r, 100))`",
-          "Add a Client Component (`'use client'`) in a separate file — a simple counter with useState",
-          "Run `npm run build` and examine the terminal output. Note which routes are Static vs. Dynamic.",
-          "Explore the `.next` directory: look at `.next/server/app/` to see compiled Server Components",
-          "Look at `.next/static/chunks/` to see the code-split client bundles. Notice: Server Component code is NOT here — it never reaches the client.",
-          "Run `npm run start` and open DevTools Network tab. Navigate between pages and observe the RSC payload requests (they'll have `RSC: 1` header).",
-          "Compare the network payload size of soft navigation (clicking a Link) vs. hard navigation (full page refresh). The soft navigation transfers significantly less data.",
+          "Stop the dev server (Ctrl+C) and run: `npm run build` — this creates an optimized version of your site. Look at the terminal output and find the list of routes.",
+          "Notice the symbols next to each route: a circle means the page was built as a static HTML file, and a lambda means it is generated on each request. Your home and about pages should both show circles.",
+          "Run: `npm run start` — this starts the production server. Open http://localhost:3000 and click between your Home and About pages. The navigation should feel instant.",
+          "Open the `.next` folder in your editor and look around. The `server/app` folder has the compiled page files, and the `static` folder has the JavaScript the browser downloads. You do not need to understand every file — just notice that Next.js splits things up automatically.",
         ]}
       />
 

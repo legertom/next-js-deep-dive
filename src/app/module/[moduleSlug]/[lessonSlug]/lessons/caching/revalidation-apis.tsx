@@ -242,14 +242,14 @@ export async function CommentList({ postId }: { postId: string }) {
       />
 
       <HandsOn
-        title="Build a Comment System with Read-Your-Writes"
+        title={'Add a "Refresh Posts" button to clear the cache'}
+        projectStep="Step 18 of 32 — Blog Platform Project"
+        projectContext="Your posts page is cached. Now you will add a button that clears the cache so you can see fresh data without waiting."
         steps={[
-          "Create a cached CommentList component with cacheTag('comments') and cacheLife('hours')",
-          "Create a Server Action addComment that inserts a comment into a data store",
-          "In the action, call updateTag('comments') so the commenter sees their new comment instantly",
-          "Add a form that calls the action and test: submit a comment and verify it appears without a page reload",
-          "Open the same page in an incognito window -- notice the new comment may not appear yet (eventual consistency for other users)",
-          "Now also add revalidateTag('comments', 'hours') to the action and verify that other users see the comment on their next request",
+          "Create a new file at app/posts/refresh-button.tsx. Add \"use client\" at the top, import revalidatePath from next/cache, and make a simple button component that calls revalidatePath('/posts') when clicked.",
+          "Open app/posts/page.tsx and import your new RefreshButton component. Render it above the posts list, like: <RefreshButton />",
+          "Refresh the posts page and note the timestamp. Now click your Refresh Posts button. You should see the timestamp update — the cache was cleared and the page re-rendered with fresh data.",
+          "Try it again: wait a moment, then click the button. Each click forces the page to re-render, even though it is cached. This is how you manually clear the cache when new content is available.",
         ]}
       />
     </div>

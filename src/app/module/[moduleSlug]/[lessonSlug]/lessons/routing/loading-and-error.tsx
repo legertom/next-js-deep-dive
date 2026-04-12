@@ -362,16 +362,15 @@ export default function PostNotFound() {
       />
 
       <HandsOn
-        title="Build Progressive Loading States"
+        title="Add loading and error pages to your blog"
+        projectStep="Step 7 of 32 — Blog Platform Project"
+        projectContext="Your blog has a root layout with nav, `app/posts/page.tsx`, and `app/posts/[slug]/page.tsx` from previous steps."
         steps={[
-          "Create app/dashboard/page.tsx with a simulated slow fetch: await new Promise(r => setTimeout(r, 3000))",
-          "Navigate to /dashboard and observe the blank screen while waiting",
-          "Create app/dashboard/loading.tsx with a skeleton UI (animated pulse divs)",
-          "Navigate again — the skeleton appears instantly while the page loads",
-          "Create app/dashboard/error.tsx with a reset button",
-          "Make your page throw an error (throw new Error('DB connection failed'))",
-          "Observe the error UI appears within the layout, and clicking reset retries the page",
-          "Move the error to layout.tsx and see that error.tsx does NOT catch it — then add error.tsx to the parent segment",
+          "Open `app/posts/[slug]/page.tsx` and add this line at the top of your function (before the return): `await new Promise(r => setTimeout(r, 3000));` — this fakes a slow data load. Visit any post and notice the page takes 3 seconds to appear.",
+          "Create a file `app/posts/[slug]/loading.tsx` that exports a default function returning `<div><p>Loading post...</p></div>`. Now visit a post page again — you will see 'Loading post...' instantly while the page loads in the background.",
+          "Create a file `app/posts/[slug]/error.tsx`. This file needs `'use client'` at the very top. Export a default function that receives `{ reset }` as a prop and returns `<div><h2>Something went wrong!</h2><button onClick={() => reset()}>Try again</button></div>`.",
+          "To test the error page, temporarily change your `app/posts/[slug]/page.tsx` to throw an error: add `throw new Error('Oops!')` before the return. Visit any post and you should see your error message with the 'Try again' button. Notice the nav bar from your layout is still visible!",
+          "Remove the `throw new Error` line and the `await new Promise(...)` delay. Your blog now has loading and error handling built in. The loading page shows automatically when content is slow, and the error page catches problems without breaking the whole site.",
         ]}
       />
     </div>

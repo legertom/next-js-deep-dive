@@ -298,15 +298,14 @@ export default function DashboardTemplate({
       />
 
       <HandsOn
-        title="See Layout Persistence in Action"
+        title="Add a navigation header to every page"
+        projectStep="Step 6 of 32 — Blog Platform Project"
+        projectContext="Your blog has `app/page.tsx`, `app/about/page.tsx`, `app/posts/page.tsx`, and `app/posts/[slug]/page.tsx` from previous steps."
         steps={[
-          "Create app/dashboard/layout.tsx with a sidebar containing a counter (useState with increment button)",
-          "Create app/dashboard/page.tsx and app/dashboard/settings/page.tsx as simple pages",
-          "Navigate between /dashboard and /dashboard/settings using Link components",
-          "Observe that the counter value in the sidebar persists across navigations",
-          "Now convert layout.tsx to template.tsx and repeat the navigation",
-          "Notice the counter resets on every navigation because the template re-mounts",
-          "Restore it as layout.tsx and add a separate template.tsx that wraps children in a fade-in animation",
+          "Open `app/layout.tsx` — this is the root layout that wraps every page. Add a `<nav>` above `{children}` with three links: `<a href='/'>Home</a>`, `<a href='/about'>About</a>`, and `<a href='/posts'>Posts</a>`. Save and check your browser.",
+          "Click between Home, About, and Posts. Notice that the navigation bar stays at the top of every page — you only wrote it once, and it automatically wraps all your pages.",
+          "Add a `<footer>` below `{children}` in the same layout file with the text 'My Blog 2026'. Now every page in your site has a header and a footer.",
+          "Visit any page and right-click -> View Page Source. You will see the nav, footer, and page content all in the HTML. The layout is rendered on the server together with the page.",
         ]}
       />
     </div>

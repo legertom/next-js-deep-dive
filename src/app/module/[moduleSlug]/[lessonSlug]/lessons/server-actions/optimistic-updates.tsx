@@ -343,15 +343,15 @@ export function FollowButton({
       />
 
       <HandsOn
-        title="Build an Optimistic Todo App"
+        title="Add an instant like button with useOptimistic"
+        projectStep="Step 29 of 32 — Blog Platform Project"
+        projectContext="Your blog has Server Actions working. Now make the UI feel instant by adding a like button that updates immediately, before the server responds."
         steps={[
-          "Create a Server Component that fetches todos from a database (or a JSON file for simplicity)",
-          "Build a client component TodoList that receives todos as props",
-          "Use useOptimistic to show new todos immediately when the form is submitted",
-          "Style optimistic (unconfirmed) todos with reduced opacity to distinguish them",
-          "Add a Server Action that creates the todo and calls revalidatePath",
-          "Test by adding artificial delay (await new Promise(r => setTimeout(r, 2000))) in your action to see the optimistic state clearly",
-          "Bonus: Add a delete button with optimistic removal — the item disappears instantly, then the server confirms",
+          "In app/actions.ts, add a new Server Action: export async function likePost(postId: string) { console.log('Liked post:', postId) }. Add a 2-second delay with await new Promise(r => setTimeout(r, 2000)) so you can see the optimistic effect clearly.",
+          "Create a new client component at app/posts/like-button.tsx. Add 'use client' at the top. It should accept props { postId: string, likes: number }. Import useOptimistic from 'react' and your likePost action.",
+          "Inside the component, set up useOptimistic: const [optimisticLikes, addOptimisticLike] = useOptimistic(likes, (state) => state + 1). Render a button that shows the like count.",
+          "In the button's onClick, call addOptimisticLike(null) first (this updates the count instantly), then call await likePost(postId) after. Click the button — you should see the number go up immediately, even though the server takes 2 seconds.",
+          "Remove the 2-second delay from your action when you are done testing. The like button now feels instant to users, even on slow connections!",
         ]}
       />
     </div>

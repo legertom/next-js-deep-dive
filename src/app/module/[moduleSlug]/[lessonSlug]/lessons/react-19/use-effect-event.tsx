@@ -246,14 +246,15 @@ export function usePageView(route: string, userId: string | null) {
       />
 
       <HandsOn
-        title="Refactor a Stale Closure Bug"
+        title="Use useEffectEvent for a stable callback"
+        projectStep="Step 25 of 32 — Blog Platform Project"
+        projectContext="Your blog should be running with `npm run dev`. You will add a simple logger that shows how useEffectEvent prevents unnecessary re-runs."
         steps={[
-          "Create a component with a WebSocket connection that depends on a 'channel' prop",
-          "Add a 'username' prop that should be included in messages but should NOT cause reconnection",
-          "First implement it with both channel and username in the useEffect dependency array — notice how changing username disconnects and reconnects",
-          "Now refactor: extract the message-sending logic into a useEffectEvent that reads the latest username",
-          "Remove username from the useEffect dependency array",
-          "Verify: changing username no longer triggers a reconnection, but sent messages include the latest username",
+          "Create a new file `app/logger-demo/page.tsx`. Make it a client component with two pieces of state: `const [count, setCount] = useState(0)` and `const [label, setLabel] = useState(\"hello\")`. Add a button that increments count and an input that changes label. Display both values on the page.",
+          "Add a `useEffect` that logs to the console: `console.log(\"Effect ran! label is:\", label)` with `[count]` as the dependency array. Open /logger-demo in your browser, open the browser Console, and click the increment button. You should see the log — but notice it shows a stale label if you change the input first.",
+          "Now fix it: import `useEffectEvent` from `\"react\"`. Create a stable callback: `const onCountChange = useEffectEvent(() => { console.log(\"Count changed! label is:\", label); })`. Update the useEffect to call `onCountChange()` instead of logging directly. Keep `[count]` as the only dependency.",
+          "Test again: change the label text in the input, then click the increment button. The console log now shows the correct, latest label value every time — without re-running the effect when label changes.",
+          "Try changing just the label input without clicking the button. The effect does not re-run. That is the key benefit: useEffectEvent reads the latest values without being reactive.",
         ]}
       />
     </div>
