@@ -218,14 +218,13 @@ and provide specific, actionable guidance.`}
       </p>
 
       <HandsOn
-        title="Celebrate and plan your next project"
-        projectStep="Step 32 of 32 — Blog Platform Project"
-        projectContext="You did it! Your blog is live on the internet. Take a moment to appreciate what you built from scratch."
+        title="Review your blog before adding AI"
+        projectStep="Step 32 of 40 — Blog Platform Project"
+        projectContext="Your blog is deployed and working. Before moving on to the AI modules, take a moment to review what you have built."
         steps={[
           "Open your deployed blog URL and click through every page. Make sure everything works — the home page, individual posts, and creating a new post. You built all of this!",
           "Open your blog on your phone. It works there too because Next.js handles responsive rendering for you.",
-          "Think about what you want to build next. It could be a portfolio site, a project tracker, or anything you want to exist in the world. You now know routing, server components, data fetching, server actions, and deployment — that is everything you need.",
-          "Push your final code to GitHub. Your own blog project is the best reference you will ever have for Next.js patterns. When you forget how something works, look at your own code first.",
+          "Push your latest code to GitHub if you have not already. In the next three modules, you will add AI features to your blog — an AI summarizer, a chat interface, and intelligent tools.",
         ]}
       />
     </div>

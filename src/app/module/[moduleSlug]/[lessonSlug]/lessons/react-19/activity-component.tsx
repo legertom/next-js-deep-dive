@@ -269,7 +269,7 @@ export default function DashboardLayout({
 
       <HandsOn
         title="Hide and show content with Activity"
-        projectStep="Step 24 of 32 — Blog Platform Project"
+        projectStep="Step 24 of 40 — Blog Platform Project"
         projectContext="Your blog should be running with `npm run dev`. You will create a small tabbed component to try out Activity."
         steps={[
           "Create a new file `app/activity-demo/page.tsx`. Add a client component with two buttons (Tab A and Tab B) and a state variable to track which tab is active. For now, use a simple conditional: `{activeTab === 0 ? <div>Tab A content</div> : <div>Tab B content</div>}`. Add a text input inside Tab A. Save and open /activity-demo in your browser.",

@@ -137,6 +137,41 @@ export const modules: Module[] = [
       { slug: "whats-next", title: "What's Next?", description: "Recap and where to go from here", estimatedMinutes: 5 },
     ],
   },
+  {
+    id: 11,
+    slug: "ai-sdk",
+    title: "AI SDK Basics",
+    subtitle: "Add AI features to your Next.js app",
+    icon: "🤖",
+    lessons: [
+      { slug: "what-is-ai-sdk", title: "What is the AI SDK?", description: "Why use a SDK for AI instead of raw API calls", estimatedMinutes: 8 },
+      { slug: "generating-text", title: "Generating Text", description: "generateText and streamText for server-side AI", estimatedMinutes: 12 },
+      { slug: "chat-ui", title: "Chat UI with useChat", description: "Build a streaming chat interface with React hooks", estimatedMinutes: 15 },
+    ],
+  },
+  {
+    id: 12,
+    slug: "ai-tools",
+    title: "Structured Output & Tools",
+    subtitle: "Get typed data from AI and let it call your functions",
+    icon: "🔧",
+    lessons: [
+      { slug: "structured-output", title: "Structured Output", description: "Get typed objects from AI with Zod schemas", estimatedMinutes: 12 },
+      { slug: "tool-calling", title: "Tool Calling", description: "Let AI call your functions to get information", estimatedMinutes: 12 },
+      { slug: "building-agents", title: "Building Agents", description: "Create AI agents that reason and act in loops", estimatedMinutes: 15 },
+    ],
+  },
+  {
+    id: 13,
+    slug: "ai-gateway",
+    title: "AI Gateway",
+    subtitle: "One API for every AI provider",
+    icon: "🌐",
+    lessons: [
+      { slug: "what-is-gateway", title: "What is AI Gateway?", description: "Unified API for Anthropic, OpenAI, Google, and more", estimatedMinutes: 10 },
+      { slug: "production-ai", title: "Production AI", description: "Fallbacks, error handling, and observability", estimatedMinutes: 10 },
+    ],
+  },
 ];
 
 export function getModule(slug: string): Module | undefined {

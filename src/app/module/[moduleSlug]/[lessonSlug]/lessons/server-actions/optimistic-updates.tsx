@@ -344,7 +344,7 @@ export function FollowButton({
 
       <HandsOn
         title="Add an instant like button with useOptimistic"
-        projectStep="Step 29 of 32 — Blog Platform Project"
+        projectStep="Step 29 of 40 — Blog Platform Project"
         projectContext="Your blog has Server Actions working. Now make the UI feel instant by adding a like button that updates immediately, before the server responds."
         steps={[
           "In app/actions.ts, add a new Server Action: export async function likePost(postId: string) { console.log('Liked post:', postId) }. Add a 2-second delay with await new Promise(r => setTimeout(r, 2000)) so you can see the optimistic effect clearly.",

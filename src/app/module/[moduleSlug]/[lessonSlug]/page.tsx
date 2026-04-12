@@ -36,6 +36,14 @@ import { OptimisticUpdates } from "./lessons/server-actions/optimistic-updates";
 import { PerformanceOptimization } from "./lessons/production/performance-optimization";
 import { Deployment } from "./lessons/production/deployment";
 import { WhatsNext } from "./lessons/production/whats-next";
+import { WhatIsAiSdk } from "./lessons/ai-sdk/what-is-ai-sdk";
+import { GeneratingText } from "./lessons/ai-sdk/generating-text";
+import { ChatUi } from "./lessons/ai-sdk/chat-ui";
+import { StructuredOutput } from "./lessons/ai-tools/structured-output";
+import { ToolCalling } from "./lessons/ai-tools/tool-calling";
+import { BuildingAgents } from "./lessons/ai-tools/building-agents";
+import { WhatIsGateway } from "./lessons/ai-gateway/what-is-gateway";
+import { ProductionAi } from "./lessons/ai-gateway/production-ai";
 
 const lessonComponents: Record<string, Record<string, React.ComponentType>> = {
   "why-nextjs": {
@@ -89,6 +97,20 @@ const lessonComponents: Record<string, Record<string, React.ComponentType>> = {
     "performance-optimization": PerformanceOptimization,
     "deployment": Deployment,
     "whats-next": WhatsNext,
+  },
+  "ai-sdk": {
+    "what-is-ai-sdk": WhatIsAiSdk,
+    "generating-text": GeneratingText,
+    "chat-ui": ChatUi,
+  },
+  "ai-tools": {
+    "structured-output": StructuredOutput,
+    "tool-calling": ToolCalling,
+    "building-agents": BuildingAgents,
+  },
+  "ai-gateway": {
+    "what-is-gateway": WhatIsGateway,
+    "production-ai": ProductionAi,
   },
 };
 

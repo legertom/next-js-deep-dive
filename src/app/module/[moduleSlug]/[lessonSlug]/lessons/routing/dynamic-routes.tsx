@@ -402,7 +402,7 @@ export default async function DocsPage({
 
       <HandsOn
         title="Create pages for individual blog posts"
-        projectStep="Step 5 of 32 — Blog Platform Project"
+        projectStep="Step 5 of 40 — Blog Platform Project"
         projectContext="Your blog has `app/page.tsx` (home), `app/about/page.tsx`, and `app/posts/page.tsx` (post list) from the previous steps."
         steps={[
           "Create a new folder with square brackets in the name: `app/posts/[slug]/` — then add a file `app/posts/[slug]/page.tsx` inside it. The square brackets tell Next.js this part of the URL can be anything.",

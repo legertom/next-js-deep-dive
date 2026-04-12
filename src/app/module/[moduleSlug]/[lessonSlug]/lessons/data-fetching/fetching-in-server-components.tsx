@@ -259,7 +259,7 @@ export default async function ProductPage({
 
       <HandsOn
         title="Fetch posts from a real API"
-        projectStep="Step 12 of 32 — Blog Platform Project"
+        projectStep="Step 12 of 40 — Blog Platform Project"
         projectContext="Open your my-blog project. Your posts page currently imports data from a local file. Now you will fetch posts from a free public API instead."
         steps={[
           "Open app/posts/page.tsx. Remove the import of your local posts data. Make the function async by adding the async keyword: export default async function PostsPage()",

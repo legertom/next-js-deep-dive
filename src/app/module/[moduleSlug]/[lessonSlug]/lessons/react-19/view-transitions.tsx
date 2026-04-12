@@ -239,7 +239,7 @@ export function Tabs({ tabs }: { tabs: Tab[] }) {
 
       <HandsOn
         title="Add a fade transition between pages"
-        projectStep="Step 23 of 32 — Blog Platform Project"
+        projectStep="Step 23 of 40 — Blog Platform Project"
         projectContext="Your blog should be running with `npm run dev`. Open `app/layout.tsx` in your editor."
         steps={[
           "At the top of `app/layout.tsx`, add this import: `import { ViewTransition } from \"react\";`. Then find where `{children}` is rendered and wrap it like this: `<ViewTransition>{children}</ViewTransition>`. Save the file.",

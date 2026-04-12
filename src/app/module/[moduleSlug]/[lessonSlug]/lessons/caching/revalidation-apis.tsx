@@ -243,7 +243,7 @@ export async function CommentList({ postId }: { postId: string }) {
 
       <HandsOn
         title={'Add a "Refresh Posts" button to clear the cache'}
-        projectStep="Step 18 of 32 — Blog Platform Project"
+        projectStep="Step 18 of 40 — Blog Platform Project"
         projectContext="Your posts page is cached. Now you will add a button that clears the cache so you can see fresh data without waiting."
         steps={[
           "Create a new file at app/posts/refresh-button.tsx. Add \"use client\" at the top, import revalidatePath from next/cache, and make a simple button component that calls revalidatePath('/posts') when clicked.",

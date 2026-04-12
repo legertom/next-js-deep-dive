@@ -327,7 +327,7 @@ export default nextConfig;`}
 
       <HandsOn
         title="Deploy your blog to the internet"
-        projectStep="Step 31 of 32 — Blog Platform Project"
+        projectStep="Step 31 of 40 — Blog Platform Project"
         projectContext="Your blog is ready to ship! Time to put it on the internet."
         steps={[
           "If you have not already, create a GitHub repository and push your blog project to it.",

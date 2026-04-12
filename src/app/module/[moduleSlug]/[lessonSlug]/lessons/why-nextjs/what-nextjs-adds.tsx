@@ -546,7 +546,7 @@ export function middleware(request: NextRequest) {
 
       <HandsOn
         title="Add pages to your blog and see server rendering"
-        projectStep="Step 2 of 32 — Blog Platform Project"
+        projectStep="Step 2 of 40 — Blog Platform Project"
         projectContext="Open the my-blog project you created in Step 1. Make sure the dev server is running with `npm run dev`."
         steps={[
           "Open `app/page.tsx`. Replace all the default content inside the return statement with: `<div><h1>My Blog</h1><p>Welcome to my blog! Built with Next.js.</p></div>` — save and check the browser.",

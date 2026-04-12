@@ -320,7 +320,7 @@ function GoodComponent({ items }: { items: Item[] }) {
 
       <HandsOn
         title="Turn on the React Compiler"
-        projectStep="Step 26 of 32 — Blog Platform Project"
+        projectStep="Step 26 of 40 — Blog Platform Project"
         projectContext="Your blog should be running with `npm run dev`. Open `next.config.ts` in your editor."
         steps={[
           "In `next.config.ts`, add `reactCompiler: true` inside the config object (next to any other options you already have). Save the file. That is the only setup needed.",

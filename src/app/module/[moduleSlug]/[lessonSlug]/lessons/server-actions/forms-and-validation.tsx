@@ -349,7 +349,7 @@ export function CreatePostForm() {
 
       <HandsOn
         title={'Build a "New Post" form with a Server Action'}
-        projectStep="Step 28 of 32 — Blog Platform Project"
+        projectStep="Step 28 of 40 — Blog Platform Project"
         projectContext="You have a working Server Action in app/actions.ts from the last exercise. Now turn it into a real form that creates blog posts."
         steps={[
           "Create a new page at app/posts/new/page.tsx. Add a <form> with two inputs: <input name='title' placeholder='Post title' /> and <textarea name='content' placeholder='Write your post...' />. Add a <button type='submit'>Publish</button> at the end.",

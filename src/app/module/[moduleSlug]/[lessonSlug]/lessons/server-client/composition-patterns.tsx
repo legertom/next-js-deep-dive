@@ -425,7 +425,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       <HandsOn
         title="Pass server data to the Like button"
-        projectStep="Step 11 of 32 — Blog Platform Project"
+        projectStep="Step 11 of 40 — Blog Platform Project"
         projectContext="Open your my-blog project. You have a posts page (Server Component) and a LikeButton (Client Component). Now you will connect them by passing data from the server to the client."
         steps={[
           "Open app/components/like-button.tsx. Change it to accept a prop: export function LikeButton({ postTitle }: { postTitle: string }). Update the button text to show the title: <button onClick={() => setLikes(likes + 1)}>Like {postTitle} ({likes})</button>",

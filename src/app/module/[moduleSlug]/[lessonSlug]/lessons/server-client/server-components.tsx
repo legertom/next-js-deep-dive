@@ -284,7 +284,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
 
       <HandsOn
         title="Move blog posts into a data file"
-        projectStep="Step 9 of 32 — Blog Platform Project"
+        projectStep="Step 9 of 40 — Blog Platform Project"
         projectContext="Open your my-blog project. Right now your posts are hardcoded directly inside app/posts/page.tsx."
         steps={[
           "Create a new file at app/data/posts.ts. Paste in an array of 3 post objects, each with slug, title, and body fields. Export it like this: export const posts = [{ slug: 'first-post', title: 'My First Post', body: 'Hello world!' }, ...]",

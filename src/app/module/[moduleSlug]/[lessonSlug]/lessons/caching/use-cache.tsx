@@ -241,7 +241,7 @@ export async function UserGreeting() {
 
       <HandsOn
         title={'Add "use cache" to your blog posts page'}
-        projectStep="Step 16 of 32 — Blog Platform Project"
+        projectStep="Step 16 of 40 — Blog Platform Project"
         projectContext={'Your posts page shows a timestamp that changes on every refresh. Now you will cache it.'}
         steps={[
           "Open next.config.ts and add cacheComponents: true inside the nextConfig object. Save the file.",

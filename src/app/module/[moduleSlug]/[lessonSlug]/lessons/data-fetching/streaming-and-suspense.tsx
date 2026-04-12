@@ -297,7 +297,7 @@ async function Analytics() {
 
       <HandsOn
         title="Show a loading state while data loads"
-        projectStep="Step 14 of 32 — Blog Platform Project"
+        projectStep="Step 14 of 40 — Blog Platform Project"
         projectContext="Open your my-blog project. Your posts page fetches data from an API, but the user sees nothing until all the data arrives. Now you will show a loading message while the data loads."
         steps={[
           "Open app/posts/page.tsx. Move your fetch logic into a new async function component called PostList in the same file. Have your main page component render <PostList /> instead of doing the fetch directly.",

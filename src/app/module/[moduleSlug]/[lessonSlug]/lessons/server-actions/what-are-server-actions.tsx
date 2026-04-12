@@ -254,7 +254,7 @@ export async function updateProfile(formData: FormData) {
 
       <HandsOn
         title="Create your first Server Action"
-        projectStep="Step 27 of 32 — Blog Platform Project"
+        projectStep="Step 27 of 40 — Blog Platform Project"
         projectContext="Open your my-blog project with npm run dev running."
         steps={[
           "Create a new file at app/actions.ts. Add 'use server' as the very first line. Then write a simple function: export async function sayHello() { console.log('Hello from the server!') }",

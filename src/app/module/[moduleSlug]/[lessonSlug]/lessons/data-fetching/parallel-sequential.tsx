@@ -355,7 +355,7 @@ async function AlbumGrid({ albumsPromise }: { albumsPromise: Promise<Album[]> })
 
       <HandsOn
         title="Fetch two things at the same time"
-        projectStep="Step 13 of 32 — Blog Platform Project"
+        projectStep="Step 13 of 40 — Blog Platform Project"
         projectContext="Open your my-blog project. Your posts page fetches posts from an API. Now you will also fetch user data, and learn how to do both at the same time instead of one after the other."
         steps={[
           "Open app/posts/page.tsx. Add a second fetch below your posts fetch: const usersRes = await fetch('https://jsonplaceholder.typicode.com/users?_limit=3'); const users = await usersRes.json(); Display the users below your posts list: <h2>Authors</h2><ul>{users.map((u: any) => <li key={u.id}>{u.name}</li>)}</ul>",

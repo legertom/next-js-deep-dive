@@ -226,7 +226,7 @@ cacheLife({ expire: 3600 }) // 1 hour
 
       <HandsOn
         title="Control how long your blog page stays cached"
-        projectStep="Step 17 of 32 — Blog Platform Project"
+        projectStep="Step 17 of 40 — Blog Platform Project"
         projectContext={'Your posts page is cached with "use cache". Now you will control how long that cache lasts.'}
         steps={[
           "Open app/posts/page.tsx. Below the \"use cache\" line, add: import { cacheLife } from 'next/cache' at the top of the file, then call cacheLife('hours') inside the component (before any JSX).",

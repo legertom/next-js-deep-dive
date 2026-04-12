@@ -363,7 +363,7 @@ export default function PostNotFound() {
 
       <HandsOn
         title="Add loading and error pages to your blog"
-        projectStep="Step 7 of 32 — Blog Platform Project"
+        projectStep="Step 7 of 40 — Blog Platform Project"
         projectContext="Your blog has a root layout with nav, `app/posts/page.tsx`, and `app/posts/[slug]/page.tsx` from previous steps."
         steps={[
           "Open `app/posts/[slug]/page.tsx` and add this line at the top of your function (before the return): `await new Promise(r => setTimeout(r, 3000));` — this fakes a slow data load. Visit any post and notice the page takes 3 seconds to appear.",

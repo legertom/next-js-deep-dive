@@ -294,7 +294,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
       <HandsOn
         title="See where your code runs"
-        projectStep="Step 8 of 32 — Blog Platform Project"
+        projectStep="Step 8 of 40 — Blog Platform Project"
         projectContext="Open your my-blog project from the previous lessons."
         steps={[
           "Open app/posts/page.tsx and add this line at the top of the function: console.log('This runs on the server!')",

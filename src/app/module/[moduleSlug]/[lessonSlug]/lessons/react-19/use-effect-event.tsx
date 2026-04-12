@@ -247,7 +247,7 @@ export function usePageView(route: string, userId: string | null) {
 
       <HandsOn
         title="Use useEffectEvent for a stable callback"
-        projectStep="Step 25 of 32 — Blog Platform Project"
+        projectStep="Step 25 of 40 — Blog Platform Project"
         projectContext="Your blog should be running with `npm run dev`. You will add a simple logger that shows how useEffectEvent prevents unnecessary re-runs."
         steps={[
           "Create a new file `app/logger-demo/page.tsx`. Make it a client component with two pieces of state: `const [count, setCount] = useState(0)` and `const [label, setLabel] = useState(\"hello\")`. Add a button that increments count and an input that changes label. Display both values on the page.",

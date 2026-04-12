@@ -342,7 +342,7 @@ export function Greeting() {
 
       <HandsOn
         title={'Add a "Like" button to blog posts'}
-        projectStep="Step 10 of 32 — Blog Platform Project"
+        projectStep="Step 10 of 40 — Blog Platform Project"
         projectContext="Open your my-blog project. Your posts page displays a list of posts from a data file. Now you will add a button that users can click."
         steps={[
           "Create a new file at app/components/like-button.tsx. On the very first line, type: 'use client' — this tells Next.js this component needs to run in the browser.",

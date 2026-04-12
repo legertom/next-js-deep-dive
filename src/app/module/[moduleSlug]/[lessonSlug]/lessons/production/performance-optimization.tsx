@@ -338,7 +338,7 @@ export function WebVitals() {
 
       <HandsOn
         title="Add next/image and next/font to your blog"
-        projectStep="Step 30 of 32 — Blog Platform Project"
+        projectStep="Step 30 of 40 — Blog Platform Project"
         projectContext="Your blog is feature-complete. Now make it faster with two quick optimizations."
         steps={[
           "Find any <img> tag in your blog (or add one to your home page). Replace it with the Next.js Image component: import Image from 'next/image' at the top, then use <Image src='/your-image.jpg' alt='Blog hero' width={800} height={400} />. You should see the image load in a modern format like WebP automatically.",

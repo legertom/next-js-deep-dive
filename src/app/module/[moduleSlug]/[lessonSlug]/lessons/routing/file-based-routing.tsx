@@ -226,7 +226,7 @@ export async function POST(request: Request) {
 
       <HandsOn
         title="Add a blog posts page"
-        projectStep="Step 4 of 32 — Blog Platform Project"
+        projectStep="Step 4 of 40 — Blog Platform Project"
         projectContext="Your blog has `app/page.tsx` (home) and `app/about/page.tsx` from the previous steps."
         steps={[
           "Create a new folder `app/posts/` and add a file `app/posts/page.tsx`. Make it export a default function that returns a list of 3 blog post titles using `<ul>` and `<li>` tags (just hardcoded text like 'My First Post', 'Learning Next.js', 'Why I Love React').",

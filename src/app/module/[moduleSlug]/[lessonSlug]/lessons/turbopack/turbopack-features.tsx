@@ -308,7 +308,7 @@ rm -rf .next/cache/turbopack`}
 
       <HandsOn
         title="See instant Hot Module Replacement in action"
-        projectStep="Step 22 of 32 — Blog Platform Project"
+        projectStep="Step 22 of 40 — Blog Platform Project"
         projectContext="Your blog should be running with `npm run dev`. Open it in your browser at http://localhost:3000."
         steps={[
           "Open `app/page.tsx` in your editor. Change the heading text to something different and save the file. Watch the browser — the change appears almost instantly without a full page reload. That is Hot Module Replacement (HMR).",

@@ -376,7 +376,7 @@ export async function proxy(request: NextRequest) {
 
       <HandsOn
         title="Add a redirect rule in proxy.ts"
-        projectStep="Step 20 of 32 — Blog Platform Project"
+        projectStep="Step 20 of 40 — Blog Platform Project"
         projectContext="Your proxy.ts file logs every request. Now you will add a simple redirect."
         steps={[
           "Open proxy.ts. Before the return NextResponse.next() line, add this check: if (request.nextUrl.pathname === '/old-blog') { return NextResponse.redirect(new URL('/posts', request.url)); }",

@@ -299,7 +299,7 @@ export default function DashboardTemplate({
 
       <HandsOn
         title="Add a navigation header to every page"
-        projectStep="Step 6 of 32 — Blog Platform Project"
+        projectStep="Step 6 of 40 — Blog Platform Project"
         projectContext="Your blog has `app/page.tsx`, `app/about/page.tsx`, `app/posts/page.tsx`, and `app/posts/[slug]/page.tsx` from previous steps."
         steps={[
           "Open `app/layout.tsx` — this is the root layout that wraps every page. Add a `<nav>` above `{children}` with three links: `<a href='/'>Home</a>`, `<a href='/about'>About</a>`, and `<a href='/posts'>Posts</a>`. Save and check your browser.",

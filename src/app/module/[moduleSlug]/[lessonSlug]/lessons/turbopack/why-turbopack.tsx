@@ -212,7 +212,7 @@ Next.js 16  → Turbopack is the DEFAULT for both dev and build`}
 
       <HandsOn
         title="See Turbopack speed in your blog"
-        projectStep="Step 21 of 32 — Blog Platform Project"
+        projectStep="Step 21 of 40 — Blog Platform Project"
         projectContext="Open your my-blog project folder in your terminal. Make sure nothing is running yet."
         steps={[
           "Run `npm run dev` and look at the terminal. You should see a line like `Ready in Xms` — that number is how long Turbopack took to start. It should be just a few seconds.",

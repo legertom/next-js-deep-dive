@@ -192,7 +192,7 @@ export const config = {
 
       <HandsOn
         title="Create a simple proxy.ts that logs every request"
-        projectStep="Step 19 of 32 — Blog Platform Project"
+        projectStep="Step 19 of 40 — Blog Platform Project"
         projectContext="Open your my-blog project. You will create a proxy.ts file at the root of your project (next to next.config.ts)."
         steps={[
           "Create a new file called proxy.ts in the root of your project (same folder as next.config.ts). Paste this code: import { NextRequest, NextResponse } from 'next/server'; export function proxy(request: NextRequest) { console.log('Request:', request.method, request.nextUrl.pathname); return NextResponse.next(); }",

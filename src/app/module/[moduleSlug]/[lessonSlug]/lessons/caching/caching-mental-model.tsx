@@ -151,7 +151,7 @@ export default nextConfig`}
 
       <HandsOn
         title="See that your blog is dynamic by default"
-        projectStep="Step 15 of 32 — Blog Platform Project"
+        projectStep="Step 15 of 40 — Blog Platform Project"
         projectContext="Open your my-blog project. Make sure npm run dev is running."
         steps={[
           "Open app/posts/page.tsx and add this line inside the component: const now = new Date().toLocaleTimeString() — then render it somewhere on the page, like <p>Rendered at: {now}</p>",

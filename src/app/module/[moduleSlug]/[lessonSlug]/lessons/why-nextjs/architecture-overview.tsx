@@ -687,7 +687,7 @@ export function LikeButton({ postId, initialLikes }) {
 
       <HandsOn
         title="Build your blog and explore the output"
-        projectStep="Step 3 of 32 — Blog Platform Project"
+        projectStep="Step 3 of 40 — Blog Platform Project"
         projectContext="Your blog should have `app/page.tsx` (home) and `app/about/page.tsx` from the previous lesson."
         steps={[
           "Stop the dev server (Ctrl+C) and run: `npm run build` — this creates an optimized version of your site. Look at the terminal output and find the list of routes.",

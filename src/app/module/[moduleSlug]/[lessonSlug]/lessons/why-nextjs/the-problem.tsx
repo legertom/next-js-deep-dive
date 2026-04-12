@@ -360,7 +360,7 @@ const Dashboard = React.lazy(() => import('./Dashboard'));
 
       <HandsOn
         title="Create your Next.js blog project"
-        projectStep="Step 1 of 32 — Blog Platform Project"
+        projectStep="Step 1 of 40 — Blog Platform Project"
         steps={[
           "Open your terminal and run: `npx create-next-app@latest my-blog --ts --app --tailwind` (press Enter to accept all defaults)",
           "Run: `cd my-blog && npm run dev` — then open http://localhost:3000 in your browser. You should see the Next.js welcome page.",
