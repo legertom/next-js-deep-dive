@@ -26,7 +26,7 @@ function isCommand(code: string): boolean {
 
 function InlineCode({ code }: { code: string }) {
   return (
-    <code className="inline bg-inline-code-bg text-inline-code-fg border border-border/50 rounded px-1.5 py-0.5 font-mono text-[0.85em]">
+    <code className="font-mono text-[0.85em] text-inline-code-fg !bg-transparent !border-0 !p-0">
       {code}
     </code>
   );
