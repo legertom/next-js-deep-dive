@@ -24,15 +24,7 @@ function isCommand(code: string): boolean {
   );
 }
 
-function InlineCode({ code }: { code: string }) {
-  return (
-    <code className="font-mono text-[0.85em] text-inline-code-fg !bg-transparent !border-0 !p-0">
-      {code}
-    </code>
-  );
-}
-
-function CopyableCode({ code }: { code: string }) {
+function CopyableCode({ code, variant }: { code: string; variant: "command" | "inline" }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(() => {
@@ -41,10 +33,15 @@ function CopyableCode({ code }: { code: string }) {
     setTimeout(() => setCopied(false), 1500);
   }, [code]);
 
+  const className =
+    variant === "command"
+      ? "relative inline-flex items-center gap-1 bg-code-bg text-code-fg border border-border/50 rounded px-1.5 py-0.5 font-mono text-[0.85em] cursor-pointer hover:bg-code-bg/80 transition-colors group"
+      : "relative inline-flex items-center gap-1 font-mono text-[0.85em] text-inline-code-fg !bg-transparent !border-0 !p-0 cursor-pointer hover:opacity-80 transition-opacity group";
+
   return (
     <code
       onClick={handleCopy}
-      className="relative inline-flex items-center gap-1 bg-code-bg text-code-fg border border-border/50 rounded px-1.5 py-0.5 font-mono text-[0.85em] cursor-pointer hover:bg-code-bg/80 transition-colors group"
+      className={className}
       title="Click to copy"
     >
       {code}
@@ -76,11 +73,8 @@ function parseStep(step: string) {
   return parts.map((part, i) => {
     if (part.startsWith("`") && part.endsWith("`")) {
       const code = part.slice(1, -1);
-      return isCommand(code) ? (
-        <CopyableCode key={i} code={code} />
-      ) : (
-        <InlineCode key={i} code={code} />
-      );
+      const variant = isCommand(code) ? "command" : "inline";
+      return <CopyableCode key={i} code={code} variant={variant} />;
     }
     return <span key={i}>{part}</span>;
   });

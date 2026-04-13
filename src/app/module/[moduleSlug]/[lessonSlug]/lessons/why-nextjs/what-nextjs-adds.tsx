@@ -143,10 +143,19 @@ export function WhatNextjsAdds() {
         <strong>four</strong>:
       </p>
 
+      <p>
+        Think about these in terms of real websites you use every day:
+      </p>
+
       <CodeBlock filename="Static Generation (SSG)" language="tsx" highlight={[2]}>
         {`// This page is built ONCE at deploy time → served as static HTML
 // WHY: Fastest possible. No server needed. CDN-cacheable globally.
 // USE FOR: Marketing pages, docs, blog posts
+//
+// REAL-WORLD EXAMPLES:
+// • A Next.js docs page — the content is the same for every visitor
+// • A company's "About Us" page — it changes only when someone redeploys
+// • A blog post on Medium — once published, the HTML is identical for everyone
 
 export default function AboutPage() {
   return <h1>About Us</h1>;
@@ -163,6 +172,13 @@ export default function AboutPage() {
         {`// This page is rendered on EVERY request
 // WHY: Content must be fresh. Personalized. Can't be pre-built.
 // USE FOR: Search results, personalized feeds, real-time data
+//
+// REAL-WORLD EXAMPLES:
+// • Google search results — the page depends on what you typed, so it
+//   can't exist until you ask for it
+// • Your Reddit or X/Twitter feed — personalized to your account,
+//   different for every user, changing every second
+// • Amazon search — results depend on your query, location, and history
 
 export default async function SearchResults({
   searchParams,
@@ -180,16 +196,38 @@ export default async function SearchResults({
 }`}
       </CodeBlock>
 
+      <p>
+        SSG is fast but frozen. SSR is fresh but slow. What if you want both?
+      </p>
+
+      <p>
+        ISR serves a <strong>cached static page instantly</strong>, just like SSG.
+        But behind the scenes, after a time window you set, the next visitor
+        triggers a <strong>background rebuild</strong>. That visitor still gets the
+        cached version (no waiting!), but the <em>next</em> visitor after the
+        rebuild gets a fresh page. The page stays fast for everyone while quietly
+        keeping itself up to date.
+      </p>
+
       <CodeBlock
         filename="Incremental Static Regeneration (ISR)"
         language="tsx"
-        highlight={[3, 4, 5]}
+        highlight={[8, 9, 10]}
       >
-        {`// The best of both worlds: static speed with fresh data
-// WHY: Serve cached HTML instantly, then revalidate in the background
-// USE FOR: Product pages, news articles — content that changes but not every second
+        {`// Cached like a static page, but refreshes itself in the background
+// WHY: Users get instant page loads AND reasonably fresh data
+//
+// REAL-WORLD EXAMPLES:
+// • A product page on Shopify — the price or "In Stock" status might
+//   change a few times a day, but not every second. Serve the cached
+//   version instantly, rebuild in the background every 60 seconds.
+// • The front page of Hacker News — stories shuffle every few minutes,
+//   but you don't need it live-to-the-millisecond. A 30-second cache
+//   means the page loads instantly while staying reasonably current.
+// • A restaurant's menu page — dishes and prices change occasionally.
+//   Rebuilding every few minutes is more than fast enough.
 
-export const revalidate = 60; // Revalidate at most every 60 seconds
+export const revalidate = 60; // Rebuild this page at most every 60 seconds
 
 export default async function ProductPage({
   params,
@@ -206,13 +244,29 @@ export default async function ProductPage({
       <span>\${product.price}</span>
     </div>
   );
-}`}
+}
+
+// Timeline of what happens:
+// 0:00  — Page is built at deploy time (like SSG)
+// 0:30  — User visits → gets the cached version instantly
+// 1:01  — User visits → still gets cached version, BUT triggers a rebuild
+// 1:02  — Rebuild finishes in the background
+// 1:05  — Next user visits → gets the fresh version, instantly`}
       </CodeBlock>
 
-      <CodeBlock filename="Streaming with Suspense" language="tsx" highlight={[8, 9, 10]}>
+      <CodeBlock filename="Streaming with Suspense" language="tsx" highlight={[16, 17, 18]}>
         {`// Send HTML progressively as data becomes available
 // WHY: Don't block the entire page on the slowest data source
 // USE FOR: Pages where some parts are fast and some are slow
+//
+// REAL-WORLD EXAMPLES:
+// • A GitHub profile page — your name and bio load instantly, but the
+//   contribution graph and pinned repos take longer. You see the page
+//   immediately with skeleton placeholders that fill in as data arrives.
+// • A Figma dashboard — the sidebar and nav appear right away, while
+//   your recent files and team activity stream in moments later.
+// • An Airbnb listing — the title, photos, and price show instantly,
+//   while reviews and "similar listings" load in the background.
 
 import { Suspense } from 'react';
 

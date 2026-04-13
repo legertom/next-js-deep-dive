@@ -6,8 +6,8 @@ interface DiagramProps {
 export function Diagram({ children, caption }: DiagramProps) {
   return (
     <figure className="my-8">
-      <div className="rounded-xl border border-card-border bg-card p-6 flex items-center justify-center overflow-x-auto">
-        {children}
+      <div className="rounded-xl border border-card-border bg-card p-4 overflow-x-auto">
+<pre className="font-mono text-xs leading-snug text-foreground whitespace-pre m-0 p-0">{children}</pre>
       </div>
       {caption && (
         <figcaption className="text-center text-sm text-muted mt-3 italic">
