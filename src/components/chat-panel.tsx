@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import type { UIMessage } from "ai";
+import ReactMarkdown from "react-markdown";
 
 interface ChatPanelProps {
   messages: UIMessage[];
@@ -90,12 +91,19 @@ export function ChatPanel({
             >
               {message.parts.map((part, i) => {
                 if (part.type === "text") {
+                  if (message.role === "user") {
+                    return (
+                      <div key={i} className="whitespace-pre-wrap">
+                        {part.text}
+                      </div>
+                    );
+                  }
                   return (
                     <div
                       key={i}
-                      className="whitespace-pre-wrap [&_code]:bg-black/10 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:font-mono [&_code]:text-xs"
+                      className="chat-markdown [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
                     >
-                      {part.text}
+                      <ReactMarkdown>{part.text}</ReactMarkdown>
                     </div>
                   );
                 }
