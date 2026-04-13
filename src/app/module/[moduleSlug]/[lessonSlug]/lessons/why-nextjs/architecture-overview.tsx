@@ -3,7 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FileTree } from "@/components/file-tree";
-import { FlowDiagram, Diagram } from "@/components/diagram";
+import { FlowDiagram } from "@/components/diagram";
 
 export function ArchitectureOverview() {
   return (
@@ -27,41 +27,74 @@ export function ArchitectureOverview() {
         parts of the architecture are active at different phases.
       </p>
 
-      <Diagram>
-        {`NEXT.JS ARCHITECTURE
-
-┌────────────┐   ┌────────────┐
-│  Compiler  │──▶│  Bundler   │
-│   (SWC)    │   │(Turbopack) │
-└────────────┘   └─────┬──────┘
-                       │
-                       ▼
-                ┌────────────┐
-                │   Static   │
-                │  Output    │
-                │(.next dir) │
-                └─────┬──────┘
-                      │
-                      ▼
-┌────────────┐  ┌────────────┐
-│ Middleware │─▶│   Router   │
-│   (Edge)   │  │(App Router)│
-└────────────┘  └─────┬──────┘
-                      │
-                      ▼
-               ┌────────────┐
-               │  Renderer  │
-               │   (RSC +   │
-               │ Streaming) │
-               └─────┬──────┘
-                     │
-                     ▼
-               ┌────────────┐
-               │    HTTP     │
-               │  Response   │
-               │(HTML + RSC) │
-               └────────────┘`}
-      </Diagram>
+      <figure className="my-8">
+        <div className="rounded-xl border border-card-border bg-card p-6 overflow-hidden">
+          <div className="text-xs font-semibold text-muted text-center mb-4 uppercase tracking-wider">
+            Next.js Architecture
+          </div>
+          <div className="flex flex-col items-center gap-0">
+            {/* Row 1: Compiler → Bundler */}
+            <div className="flex items-center gap-3">
+              <div className="px-4 py-2.5 rounded-lg border-2 border-accent bg-accent-light text-accent-text text-center min-w-[120px]">
+                <div className="font-semibold text-sm">Compiler</div>
+                <div className="text-xs opacity-75">SWC</div>
+              </div>
+              <svg className="w-5 h-5 text-muted flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+              <div className="px-4 py-2.5 rounded-lg border-2 border-accent bg-accent-light text-accent-text text-center min-w-[120px]">
+                <div className="font-semibold text-sm">Bundler</div>
+                <div className="text-xs opacity-75">Turbopack</div>
+              </div>
+            </div>
+            {/* Arrow down */}
+            <svg className="w-5 h-8 text-muted" fill="none" viewBox="0 0 24 32" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v20m0 0l-5-5m5 5l5-5" />
+            </svg>
+            {/* Row 2: Static Output */}
+            <div className="px-4 py-2.5 rounded-lg border-2 border-accent bg-accent-light text-accent-text text-center min-w-[120px]">
+              <div className="font-semibold text-sm">Static Output</div>
+              <div className="text-xs opacity-75">.next directory</div>
+            </div>
+            {/* Arrow down */}
+            <svg className="w-5 h-8 text-muted" fill="none" viewBox="0 0 24 32" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v20m0 0l-5-5m5 5l5-5" />
+            </svg>
+            {/* Row 3: Middleware → Router */}
+            <div className="flex items-center gap-3">
+              <div className="px-4 py-2.5 rounded-lg border-2 border-warning bg-warning-light text-warning-text text-center min-w-[120px]">
+                <div className="font-semibold text-sm">Middleware</div>
+                <div className="text-xs opacity-75">Edge</div>
+              </div>
+              <svg className="w-5 h-5 text-muted flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+              <div className="px-4 py-2.5 rounded-lg border-2 border-accent bg-accent-light text-accent-text text-center min-w-[120px]">
+                <div className="font-semibold text-sm">Router</div>
+                <div className="text-xs opacity-75">App Router</div>
+              </div>
+            </div>
+            {/* Arrow down */}
+            <svg className="w-5 h-8 text-muted" fill="none" viewBox="0 0 24 32" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v20m0 0l-5-5m5 5l5-5" />
+            </svg>
+            {/* Row 4: Renderer */}
+            <div className="px-4 py-2.5 rounded-lg border-2 border-accent bg-accent-light text-accent-text text-center min-w-[120px]">
+              <div className="font-semibold text-sm">Renderer</div>
+              <div className="text-xs opacity-75">RSC + Streaming</div>
+            </div>
+            {/* Arrow down */}
+            <svg className="w-5 h-8 text-muted" fill="none" viewBox="0 0 24 32" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v20m0 0l-5-5m5 5l5-5" />
+            </svg>
+            {/* Row 5: HTTP Response */}
+            <div className="px-4 py-2.5 rounded-lg border-2 border-success bg-success-light text-success-text text-center min-w-[120px]">
+              <div className="font-semibold text-sm">HTTP Response</div>
+              <div className="text-xs opacity-75">HTML + RSC Payload</div>
+            </div>
+          </div>
+        </div>
+      </figure>
 
       <h2>1. The Compiler (SWC)</h2>
 
@@ -614,28 +647,50 @@ export function LikeButton({ postId, initialLikes }) {
 }`}
       </CodeBlock>
 
-      <Diagram>
-        {`
-┌─────────────────────────────────────────────────────┐
-│                    SERVER                             │
-│                                                      │
-│  ┌──────────────┐  ┌──────────────┐                 │
-│  │  BlogPost    │  │  PostContent │  Server          │
-│  │  (async,     │  │  (renders    │  Components      │
-│  │   fetches DB)│  │   markdown)  │                  │
-│  └──────┬───────┘  └──────────────┘                  │
-│         │                                            │
-│ ────────┼──────── 'use client' BOUNDARY ──────────── │
-│         │                                            │
-│  ┌──────▼───────┐                                    │
-│  │  LikeButton  │  Client Component                  │
-│  │  (useState,  │  → Serialized as reference         │
-│  │   onClick)   │  → JS shipped to browser           │
-│  └──────────────┘                                    │
-│                                                      │
-└─────────────────────────────────────────────────────┘
-        `}
-      </Diagram>
+      <figure className="my-8">
+        <div className="rounded-xl border border-card-border bg-card p-6 overflow-hidden">
+          {/* Server section */}
+          <div className="border-2 border-accent rounded-lg p-4 mb-0">
+            <div className="text-xs font-semibold text-muted text-center mb-3 uppercase tracking-wider">Server</div>
+            <div className="flex items-start justify-center gap-3 flex-wrap">
+              <div className="px-4 py-2.5 rounded-lg border-2 border-accent bg-accent-light text-accent-text text-center min-w-[120px]">
+                <div className="font-semibold text-sm">BlogPost</div>
+                <div className="text-xs opacity-75">async, fetches DB</div>
+              </div>
+              <div className="px-4 py-2.5 rounded-lg border-2 border-accent bg-accent-light text-accent-text text-center min-w-[120px]">
+                <div className="font-semibold text-sm">PostContent</div>
+                <div className="text-xs opacity-75">renders markdown</div>
+              </div>
+              <div className="px-3 py-2.5 text-xs text-muted italic self-center">Server Components</div>
+            </div>
+          </div>
+          {/* Boundary */}
+          <div className="flex items-center gap-2 my-0">
+            <div className="flex-1 border-t-2 border-dashed border-warning" />
+            <div className="flex flex-col items-center">
+              <svg className="w-4 h-6 text-muted" fill="none" viewBox="0 0 24 32" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v20m0 0l-5-5m5 5l5-5" />
+              </svg>
+              <span className="text-xs font-bold text-warning-text bg-warning-light px-2 py-0.5 rounded whitespace-nowrap">&apos;use client&apos; boundary</span>
+            </div>
+            <div className="flex-1 border-t-2 border-dashed border-warning" />
+          </div>
+          {/* Client section */}
+          <div className="border-2 border-warning rounded-lg p-4 mt-0">
+            <div className="flex items-start justify-center gap-3 flex-wrap">
+              <div className="px-4 py-2.5 rounded-lg border-2 border-warning bg-warning-light text-warning-text text-center min-w-[120px]">
+                <div className="font-semibold text-sm">LikeButton</div>
+                <div className="text-xs opacity-75">useState, onClick</div>
+              </div>
+              <div className="text-xs text-muted self-center space-y-0.5">
+                <div>Client Component</div>
+                <div className="opacity-75">→ Serialized as reference</div>
+                <div className="opacity-75">→ JS shipped to browser</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </figure>
 
       <Quiz
         question="When a user navigates between pages using a <Link> component (soft navigation), what does the server send?"
@@ -698,9 +753,10 @@ export function LikeButton({ postId, initialLikes }) {
         projectStep="Step 3 of 40 — Blog Platform Project"
         projectContext="Your blog should have `app/page.tsx` (home) and `app/about/page.tsx` from the previous lesson."
         steps={[
+          "First, add navigation so you can click between pages. Open `app/page.tsx` and add `import Link from 'next/link';` at the top. Then add this inside your return, below the existing content: `<nav><Link href=\"/about\">About</Link></nav>`. Do the same in `app/about/page.tsx` but link back to home: `<nav><Link href=\"/\">Home</Link></nav>`.",
           "Stop the dev server (Ctrl+C) and run: `npm run build` — this creates an optimized version of your site. Look at the terminal output and find the list of routes.",
           "Notice the symbols next to each route: a circle means the page was built as a static HTML file, and a lambda means it is generated on each request. Your home and about pages should both show circles.",
-          "Run: `npm run start` — this starts the production server. Open http://localhost:3000 and click between your Home and About pages. The navigation should feel instant.",
+          "Run: `npm run start` — this starts the production server. Open http://localhost:3000 and click between your Home and About pages using the links you added. The navigation should feel instant — no full page reload, just a seamless swap.",
           "Open the `.next` folder in your editor and look around. The `server/app` folder has the compiled page files, and the `static` folder has the JavaScript the browser downloads. You do not need to understand every file — just notice that Next.js splits things up automatically.",
         ]}
       />
