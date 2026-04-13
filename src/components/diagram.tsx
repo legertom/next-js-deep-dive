@@ -29,7 +29,7 @@ export function FlowDiagram({ steps, title }: { steps: FlowStep[]; title?: strin
     <div className="flex flex-wrap items-center justify-center gap-2 py-4">
       {normalized.map((step, i) => (
         <div key={i} className="flex items-center gap-2">
-          <div className={`px-4 py-3 rounded-lg border-2 text-center min-w-[120px] ${step.color || "border-accent bg-accent-light text-blue-800"}`}>
+          <div className={`px-4 py-3 rounded-lg border-2 text-center min-w-[120px] ${step.color || "border-accent bg-accent-light text-accent-text"}`}>
             <div className="font-semibold text-sm">{step.label}</div>
             {step.sublabel && <div className="text-xs mt-0.5 opacity-75">{step.sublabel}</div>}
           </div>

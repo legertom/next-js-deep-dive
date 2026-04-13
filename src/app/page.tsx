@@ -76,7 +76,7 @@ export default function HomePage() {
               href={`/module/${mod.slug}/${mod.lessons[0].slug}`}
               className="group flex items-start gap-5 p-5 rounded-xl border border-card-border bg-card hover:border-accent/30 hover:shadow-md transition-all no-underline"
             >
-              <div className="w-12 h-12 rounded-xl bg-stone-100 flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-xl bg-subtle flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-110 transition-transform">
                 {mod.icon}
               </div>
               <div className="flex-1 min-w-0">

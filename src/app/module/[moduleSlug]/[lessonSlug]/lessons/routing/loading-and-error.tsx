@@ -96,18 +96,18 @@ export function LoadingAndError() {
       <Diagram caption="Streaming vs Traditional SSR">
         <div className="w-full max-w-lg space-y-6 text-sm">
           <div>
-            <p className="font-semibold mb-2 text-stone-700">Traditional SSR:</p>
+            <p className="font-semibold mb-2 text-muted">Traditional SSR:</p>
             <div className="flex gap-1">
-              <div className="flex-1 h-8 bg-stone-300 rounded flex items-center justify-center text-xs">
+              <div className="flex-1 h-8 bg-border rounded flex items-center justify-center text-xs">
                 Fetch all data...
               </div>
-              <div className="w-20 h-8 bg-green-300 rounded flex items-center justify-center text-xs">
+              <div className="w-20 h-8 bg-success/30 rounded flex items-center justify-center text-xs">
                 Send HTML
               </div>
             </div>
           </div>
           <div>
-            <p className="font-semibold mb-2 text-stone-700">Streaming with Suspense:</p>
+            <p className="font-semibold mb-2 text-muted">Streaming with Suspense:</p>
             <div className="flex gap-1">
               <div className="w-24 h-8 bg-green-300 rounded flex items-center justify-center text-xs">
                 Shell + Loading

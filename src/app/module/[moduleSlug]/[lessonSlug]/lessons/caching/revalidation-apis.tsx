@@ -156,17 +156,17 @@ export function RefreshButton() {
 
       <Diagram caption="Decision tree for choosing a revalidation strategy">
         <div className="w-full max-w-md space-y-3 text-sm">
-          <div className="p-3 rounded-lg bg-stone-50 border border-stone-200">
-            <div className="font-semibold text-stone-800 mb-2">Did the user just mutate data in a Server Action?</div>
+          <div className="p-3 rounded-lg bg-subtle border border-border">
+            <div className="font-semibold text-foreground mb-2">Did the user just mutate data in a Server Action?</div>
             <div className="pl-4 space-y-2">
-              <div className="text-stone-700">Must they see it immediately? → <code className="bg-green-100 px-1 rounded">updateTag</code></div>
-              <div className="text-stone-700">Okay if slightly delayed? → <code className="bg-amber-100 px-1 rounded">revalidateTag</code></div>
+              <div className="text-muted">Must they see it immediately? → <code className="bg-success-light px-1 rounded">updateTag</code></div>
+              <div className="text-muted">Okay if slightly delayed? → <code className="bg-warning-light px-1 rounded">revalidateTag</code></div>
             </div>
           </div>
-          <div className="p-3 rounded-lg bg-stone-50 border border-stone-200">
-            <div className="font-semibold text-stone-800 mb-2">Does the user want fresh dynamic content without a full reload?</div>
+          <div className="p-3 rounded-lg bg-subtle border border-border">
+            <div className="font-semibold text-foreground mb-2">Does the user want fresh dynamic content without a full reload?</div>
             <div className="pl-4">
-              <div className="text-stone-700">Yes → <code className="bg-purple-100 px-1 rounded">refresh()</code></div>
+              <div className="text-muted">Yes → <code className="bg-important-bg px-1 rounded">refresh()</code></div>
             </div>
           </div>
         </div>
@@ -246,7 +246,7 @@ export async function CommentList({ postId }: { postId: string }) {
         projectStep="Step 18 of 40 — Blog Platform Project"
         projectContext="Your posts page is cached. Now you will add a button that clears the cache so you can see fresh data without waiting."
         steps={[
-          "Create a new file at app/posts/refresh-button.tsx. Add \"use client\" at the top, import revalidatePath from next/cache, and make a simple button component that calls revalidatePath('/posts') when clicked.",
+          'Create a new file at app/posts/refresh-button.tsx. Add "use client" at the top, import revalidatePath from next/cache, and make a simple button component that calls revalidatePath(\'/posts\') when clicked.',
           "Open app/posts/page.tsx and import your new RefreshButton component. Render it above the posts list, like: <RefreshButton />",
           "Refresh the posts page and note the timestamp. Now click your Refresh Posts button. You should see the timestamp update — the cache was cleared and the page re-rendered with fresh data.",
           "Try it again: wait a moment, then click the button. Each click forces the page to re-render, even though it is cached. This is how you manually clear the cache when new content is available.",

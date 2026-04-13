@@ -21,8 +21,8 @@ export function LessonNav({ currentKey, prev, next }: LessonNavProps) {
           onClick={() => (done ? markIncomplete(currentKey) : markComplete(currentKey))}
           className={`flex items-center gap-2.5 px-6 py-3 rounded-xl font-semibold text-sm transition-all cursor-pointer ${
             done
-              ? "bg-success-light text-green-800 border-2 border-success/30 hover:bg-green-100"
-              : "bg-accent text-white hover:bg-blue-700 border-2 border-transparent"
+              ? "bg-success-light text-success-text border-2 border-success/30 hover:bg-success-light/80"
+              : "bg-accent text-white hover:bg-accent/80 border-2 border-transparent"
           }`}
         >
           {done ? (
