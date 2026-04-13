@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { modules, getTotalLessons } from "@/lib/course-data";
 import { useProgress } from "./progress-provider";
 import { useTheme } from "./theme-provider";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -13,11 +13,34 @@ export function Sidebar() {
   const { theme, toggleTheme } = useTheme();
   const totalLessons = getTotalLessons();
   const progressPercent = Math.round((totalCompleted / totalLessons) * 100);
+  const activeLessonRef = useRef<HTMLAnchorElement>(null);
   const [expandedModules, setExpandedModules] = useState<Set<string>>(() => {
     // Auto-expand the module matching current path
     const match = pathname.match(/\/module\/([^/]+)/);
     return new Set(match ? [match[1]] : [modules[0].slug]);
   });
+
+  // When the route changes, expand the active module and scroll to the active lesson
+  useEffect(() => {
+    const match = pathname.match(/\/module\/([^/]+)/);
+    if (match) {
+      setExpandedModules((prev) => {
+        if (prev.has(match[1])) return prev;
+        const next = new Set(prev);
+        next.add(match[1]);
+        return next;
+      });
+    }
+  }, [pathname]);
+
+  // Scroll the active lesson into view after the module expands
+  useEffect(() => {
+    // Small delay to let the expanded module render
+    const timer = setTimeout(() => {
+      activeLessonRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [pathname]);
 
   const toggleModule = (slug: string) => {
     setExpandedModules((prev) => {
@@ -43,10 +66,29 @@ export function Sidebar() {
         </Link>
       </div>
 
-      {/* Progress */}
+      {/* Currently reading */}
+      {(() => {
+        const match = pathname.match(/\/module\/([^/]+)\/([^/]+)/);
+        if (!match) return null;
+        const currentMod = modules.find((m) => m.slug === match[1]);
+        const currentLesson = currentMod?.lessons.find((l) => l.slug === match[2]);
+        if (!currentMod || !currentLesson) return null;
+        const lessonIdx = currentMod.lessons.indexOf(currentLesson);
+        return (
+          <div className="px-5 py-4 border-b border-border">
+            <div className="text-[0.6875rem] uppercase tracking-wider text-muted mb-1.5">Currently reading</div>
+            <div className="text-[0.8125rem] font-semibold text-foreground leading-snug">{currentLesson.title}</div>
+            <div className="text-[0.6875rem] text-muted mt-0.5">
+              Module {currentMod.id} · Lesson {lessonIdx + 1} of {currentMod.lessons.length}
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* Course progress */}
       <div className="px-5 py-4 border-b border-border">
         <div className="flex items-center justify-between text-xs text-muted mb-2">
-          <span>Progress</span>
+          <span>Course progress</span>
           <span className="font-semibold">{totalCompleted}/{totalLessons} lessons</span>
         </div>
         <div className="h-1.5 bg-subtle rounded-full overflow-hidden">
@@ -98,6 +140,7 @@ export function Sidebar() {
                       <Link
                         key={lesson.slug}
                         href={href}
+                        ref={isActive ? activeLessonRef : undefined}
                         className={`flex items-center gap-2.5 pl-12 pr-5 py-2 text-[0.8125rem] no-underline transition-colors ${
                           isActive
                             ? "bg-sidebar-active text-accent font-medium"
