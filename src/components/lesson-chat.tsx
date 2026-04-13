@@ -1,15 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { ChatPanel } from "./chat-panel";
+import { TextSelectionPopover } from "./text-selection-popover";
 
 interface LessonChatProps {
   moduleTitle: string;
   lessonTitle: string;
   lessonDescription: string;
   lessonKey: string;
+  articleRef: React.RefObject<HTMLElement | null>;
 }
 
 export function LessonChat({
@@ -17,8 +19,10 @@ export function LessonChat({
   lessonTitle,
   lessonDescription,
   lessonKey,
+  articleRef,
 }: LessonChatProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [initialInput, setInitialInput] = useState<string | undefined>();
 
   const { messages, sendMessage, status, stop, error } = useChat({
     id: lessonKey,
@@ -30,8 +34,24 @@ export function LessonChat({
     }),
   });
 
+  const handleAskAboutSelection = (selectedText: string) => {
+    const truncated =
+      selectedText.length > 300
+        ? selectedText.slice(0, 300) + "..."
+        : selectedText;
+    const prefilled = `Explain this: "${truncated}"`;
+    setInitialInput(prefilled);
+    setIsOpen(true);
+  };
+
   return (
     <>
+      {/* Text selection popover */}
+      <TextSelectionPopover
+        containerRef={articleRef}
+        onAskTutor={handleAskAboutSelection}
+      />
+
       {/* Chat panel */}
       {isOpen && (
         <ChatPanel
@@ -39,9 +59,16 @@ export function LessonChat({
           status={status}
           error={error}
           lessonTitle={lessonTitle}
-          onSend={(text) => sendMessage({ text })}
+          onSend={(text) => {
+            sendMessage({ text });
+            setInitialInput(undefined);
+          }}
           onStop={stop}
-          onClose={() => setIsOpen(false)}
+          onClose={() => {
+            setIsOpen(false);
+            setInitialInput(undefined);
+          }}
+          initialInput={initialInput}
         />
       )}
 

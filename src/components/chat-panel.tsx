@@ -1,8 +1,13 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import type { UIMessage } from "ai";
 import ReactMarkdown from "react-markdown";
+
+const MIN_WIDTH = 320;
+const MIN_HEIGHT = 350;
+const MAX_WIDTH = 800;
+const MAX_HEIGHT = 900;
 
 interface ChatPanelProps {
   messages: UIMessage[];
@@ -12,6 +17,7 @@ interface ChatPanelProps {
   onSend: (text: string) => void;
   onStop: () => void;
   onClose: () => void;
+  initialInput?: string;
 }
 
 export function ChatPanel({
@@ -22,12 +28,47 @@ export function ChatPanel({
   onSend,
   onStop,
   onClose,
+  initialInput,
 }: ChatPanelProps) {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(initialInput ?? "");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [size, setSize] = useState({ width: 384, height: 500 });
+  const dragRef = useRef<{ startX: number; startY: number; startW: number; startH: number } | null>(null);
 
   const isLoading = status === "submitted" || status === "streaming";
+
+  // Sync initialInput when it changes externally (e.g. from text selection)
+  useEffect(() => {
+    if (initialInput) {
+      setInput(initialInput);
+      inputRef.current?.focus();
+    }
+  }, [initialInput]);
+
+  const handleResizePointerDown = useCallback((e: React.PointerEvent) => {
+    e.preventDefault();
+    dragRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      startW: size.width,
+      startH: size.height,
+    };
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+  }, [size]);
+
+  const handleResizePointerMove = useCallback((e: React.PointerEvent) => {
+    if (!dragRef.current) return;
+    const { startX, startY, startW, startH } = dragRef.current;
+    // Panel is anchored bottom-right, so dragging left increases width, dragging up increases height
+    const newWidth = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, startW + (startX - e.clientX)));
+    const newHeight = Math.min(MAX_HEIGHT, Math.max(MIN_HEIGHT, startH + (startY - e.clientY)));
+    setSize({ width: newWidth, height: newHeight });
+  }, []);
+
+  const handleResizePointerUp = useCallback(() => {
+    dragRef.current = null;
+  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -45,7 +86,25 @@ export function ChatPanel({
   };
 
   return (
-    <div className="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-card rounded-2xl shadow-2xl border border-card-border flex flex-col overflow-hidden">
+    <div
+      className="fixed bottom-24 right-6 z-50 bg-card rounded-2xl shadow-2xl border border-card-border flex flex-col overflow-hidden"
+      style={{ width: size.width, height: size.height }}
+    >
+      {/* Resize handle (top-left corner) */}
+      <div
+        onPointerDown={handleResizePointerDown}
+        onPointerMove={handleResizePointerMove}
+        onPointerUp={handleResizePointerUp}
+        className="absolute top-0 left-0 w-4 h-4 cursor-nw-resize z-10 group"
+        aria-label="Resize chat"
+      >
+        <svg className="w-3 h-3 m-0.5 text-muted group-hover:text-foreground transition-colors" viewBox="0 0 10 10" fill="currentColor">
+          <circle cx="2" cy="2" r="1" />
+          <circle cx="2" cy="5.5" r="1" />
+          <circle cx="5.5" cy="2" r="1" />
+        </svg>
+      </div>
+
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-subtle">
         <div className="min-w-0">
