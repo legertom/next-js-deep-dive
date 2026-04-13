@@ -20,7 +20,7 @@ export function LessonChat({
 }: LessonChatProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { messages, sendMessage, status, stop } = useChat({
+  const { messages, sendMessage, status, stop, error } = useChat({
     id: lessonKey,
     transport: new DefaultChatTransport({
       api: "/api/chat",
@@ -37,6 +37,7 @@ export function LessonChat({
         <ChatPanel
           messages={messages}
           status={status}
+          error={error}
           lessonTitle={lessonTitle}
           onSend={(text) => sendMessage({ text })}
           onStop={stop}

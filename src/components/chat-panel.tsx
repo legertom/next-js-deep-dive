@@ -6,6 +6,7 @@ import type { UIMessage } from "ai";
 interface ChatPanelProps {
   messages: UIMessage[];
   status: "submitted" | "streaming" | "ready" | "error";
+  error: Error | undefined;
   lessonTitle: string;
   onSend: (text: string) => void;
   onStop: () => void;
@@ -15,6 +16,7 @@ interface ChatPanelProps {
 export function ChatPanel({
   messages,
   status,
+  error,
   lessonTitle,
   onSend,
   onStop,
@@ -44,7 +46,7 @@ export function ChatPanel({
   return (
     <div className="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-card rounded-2xl shadow-2xl border border-card-border flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-stone-50">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-subtle">
         <div className="min-w-0">
           <div className="text-sm font-semibold text-foreground truncate">
             Ask about this lesson
@@ -53,7 +55,7 @@ export function ChatPanel({
         </div>
         <button
           onClick={onClose}
-          className="text-muted hover:text-foreground p-1 rounded-lg hover:bg-stone-200 flex-shrink-0"
+          className="text-muted hover:text-foreground p-1 rounded-lg hover:bg-border flex-shrink-0"
           aria-label="Close chat"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -83,7 +85,7 @@ export function ChatPanel({
               className={`max-w-[85%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed ${
                 message.role === "user"
                   ? "bg-accent text-white"
-                  : "bg-stone-100 text-foreground"
+                  : "bg-subtle text-foreground"
               }`}
             >
               {message.parts.map((part, i) => {
@@ -103,14 +105,27 @@ export function ChatPanel({
           </div>
         ))}
 
-        {status === "submitted" && (
+        {status === "submitted" && !error && (
           <div className="flex justify-start">
-            <div className="bg-stone-100 rounded-xl px-3.5 py-2.5 text-sm text-muted">
+            <div className="bg-subtle rounded-xl px-3.5 py-2.5 text-sm text-muted">
               <span className="inline-flex gap-1">
                 <span className="animate-bounce">.</span>
                 <span className="animate-bounce [animation-delay:0.1s]">.</span>
                 <span className="animate-bounce [animation-delay:0.2s]">.</span>
               </span>
+            </div>
+          </div>
+        )}
+
+        {error && (
+          <div className="flex justify-start">
+            <div className="bg-error-light border border-error/20 rounded-xl px-3.5 py-2.5 text-sm text-error-text">
+              <p className="font-medium">Something went wrong</p>
+              <p className="text-xs mt-1 text-error-text">
+                {error.message.includes("credit card")
+                  ? "The AI Gateway requires a credit card on your Vercel account to unlock free credits."
+                  : "Could not reach the AI assistant. Please try again."}
+              </p>
             </div>
           </div>
         )}
@@ -121,21 +136,21 @@ export function ChatPanel({
       {/* Input */}
       <form
         onSubmit={handleSubmit}
-        className="border-t border-border px-3 py-3 flex gap-2 bg-stone-50"
+        className="border-t border-border px-3 py-3 flex gap-2 bg-subtle"
       >
         <input
           ref={inputRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask a question..."
-          className="flex-1 px-3 py-2 rounded-lg border border-border bg-white text-sm text-foreground placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent"
+          className="flex-1 px-3 py-2 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent"
           disabled={isLoading}
         />
         {isLoading ? (
           <button
             type="button"
             onClick={onStop}
-            className="px-3 py-2 rounded-lg bg-stone-200 text-muted text-sm font-medium hover:bg-stone-300"
+            className="px-3 py-2 rounded-lg bg-subtle text-muted text-sm font-medium hover:bg-border"
           >
             Stop
           </button>

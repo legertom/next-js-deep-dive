@@ -4,11 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { modules, getTotalLessons } from "@/lib/course-data";
 import { useProgress } from "./progress-provider";
+import { useTheme } from "./theme-provider";
 import { useState } from "react";
 
 export function Sidebar() {
   const pathname = usePathname();
   const { isComplete, totalCompleted } = useProgress();
+  const { theme, toggleTheme } = useTheme();
   const totalLessons = getTotalLessons();
   const progressPercent = Math.round((totalCompleted / totalLessons) * 100);
   const [expandedModules, setExpandedModules] = useState<Set<string>>(() => {
@@ -47,7 +49,7 @@ export function Sidebar() {
           <span>Progress</span>
           <span className="font-semibold">{totalCompleted}/{totalLessons} lessons</span>
         </div>
-        <div className="h-1.5 bg-stone-100 rounded-full overflow-hidden">
+        <div className="h-1.5 bg-subtle rounded-full overflow-hidden">
           <div
             className="h-full bg-accent rounded-full transition-all duration-500"
             style={{ width: `${progressPercent}%` }}
@@ -67,7 +69,7 @@ export function Sidebar() {
             <div key={mod.slug} className="mb-1">
               <button
                 onClick={() => toggleModule(mod.slug)}
-                className="w-full flex items-center gap-2.5 px-5 py-2.5 text-left hover:bg-stone-50 transition-colors cursor-pointer"
+                className="w-full flex items-center gap-2.5 px-5 py-2.5 text-left hover:bg-subtle transition-colors cursor-pointer"
               >
                 <span className="text-base">{mod.icon}</span>
                 <div className="flex-1 min-w-0">
@@ -99,7 +101,7 @@ export function Sidebar() {
                         className={`flex items-center gap-2.5 pl-12 pr-5 py-2 text-[0.8125rem] no-underline transition-colors ${
                           isActive
                             ? "bg-sidebar-active text-accent font-medium"
-                            : "text-muted hover:text-foreground hover:bg-stone-50"
+                            : "text-muted hover:text-foreground hover:bg-subtle"
                         }`}
                       >
                         <span className={`w-4 h-4 flex-shrink-0 rounded-full border-2 flex items-center justify-center ${
@@ -107,7 +109,7 @@ export function Sidebar() {
                             ? "border-success bg-success text-white"
                             : isActive
                               ? "border-accent"
-                              : "border-stone-300"
+                              : "border-border"
                         }`}>
                           {done && (
                             <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -125,6 +127,24 @@ export function Sidebar() {
           );
         })}
       </nav>
+      {/* Theme toggle */}
+      <div className="px-5 py-4 border-t border-border">
+        <button
+          onClick={toggleTheme}
+          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-muted hover:text-foreground hover:bg-subtle transition-colors cursor-pointer"
+        >
+          {theme === "dark" ? (
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          ) : (
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          )}
+          {theme === "dark" ? "Light mode" : "Night mode"}
+        </button>
+      </div>
     </aside>
   );
 }

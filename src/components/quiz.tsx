@@ -49,21 +49,21 @@ export function Quiz({ question, options }: QuizProps) {
       <div className="p-6 space-y-3">
         {options.map((option, i) => {
           let borderColor = "border-card-border";
-          let bgColor = "bg-white";
+          let bgColor = "bg-card";
           let textColor = "text-foreground";
 
           if (revealed && i === correctIndex) {
             borderColor = "border-success";
             bgColor = "bg-success-light";
-            textColor = "text-green-800";
+            textColor = "text-success-text";
           } else if (revealed && i === selected && !isCorrect) {
             borderColor = "border-error";
             bgColor = "bg-error-light";
-            textColor = "text-red-800";
+            textColor = "text-error-text";
           } else if (selected === i && !revealed) {
             borderColor = "border-accent";
             bgColor = "bg-accent-light";
-            textColor = "text-blue-800";
+            textColor = "text-accent-text";
           }
 
           return (
@@ -87,14 +87,14 @@ export function Quiz({ question, options }: QuizProps) {
             <button
               onClick={handleCheck}
               disabled={selected === null}
-              className="px-5 py-2 bg-accent text-white rounded-lg font-medium text-sm disabled:opacity-40 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors cursor-pointer"
+              className="px-5 py-2 bg-accent text-white rounded-lg font-medium text-sm disabled:opacity-40 disabled:cursor-not-allowed hover:bg-accent/80 transition-colors cursor-pointer"
             >
               Check Answer
             </button>
           ) : (
             <button
               onClick={handleReset}
-              className="px-5 py-2 bg-stone-200 text-stone-700 rounded-lg font-medium text-sm hover:bg-stone-300 transition-colors cursor-pointer"
+              className="px-5 py-2 bg-subtle text-muted rounded-lg font-medium text-sm hover:bg-border transition-colors cursor-pointer"
             >
               Try Again
             </button>
@@ -103,11 +103,11 @@ export function Quiz({ question, options }: QuizProps) {
 
         {revealed && (
           <div className={`mt-4 p-4 rounded-lg ${isCorrect ? "bg-success-light border border-success/20" : "bg-error-light border border-error/20"}`}>
-            <p className={`font-semibold text-sm ${isCorrect ? "text-green-800" : "text-red-800"}`}>
+            <p className={`font-semibold text-sm ${isCorrect ? "text-success-text" : "text-error-text"}`}>
               {isCorrect ? "Correct!" : "Not quite."}
             </p>
             {options[correctIndex]?.explanation && (
-              <p className={`text-sm mt-1 ${isCorrect ? "text-green-700" : "text-red-700"}`}>
+              <p className={`text-sm mt-1 ${isCorrect ? "text-success-text" : "text-error-text"}`}>
                 {options[correctIndex].explanation}
               </p>
             )}
