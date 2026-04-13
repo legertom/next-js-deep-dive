@@ -1,8 +1,89 @@
+"use client";
+
+import { useState, useCallback } from "react";
+
 interface HandsOnProps {
   title: string;
   steps: string[];
   projectContext?: string;
   projectStep?: string;
+}
+
+/** Detect if a code string looks like a runnable command vs a file path / identifier. */
+function isCommand(code: string): boolean {
+  const commandPrefixes = [
+    "npm ", "npx ", "yarn ", "pnpm ", "cd ", "git ", "mkdir ", "touch ",
+    "rm ", "cp ", "mv ", "cat ", "echo ", "curl ", "node ", "bun ",
+    "next ", "vercel ", "sudo ",
+  ];
+  const trimmed = code.trimStart();
+  return (
+    commandPrefixes.some((p) => trimmed.startsWith(p)) ||
+    trimmed.includes(" && ") ||
+    trimmed.includes(" | ")
+  );
+}
+
+function InlineCode({ code }: { code: string }) {
+  return (
+    <code className="inline bg-inline-code-bg text-inline-code-fg border border-border/50 rounded px-1.5 py-0.5 font-mono text-[0.85em]">
+      {code}
+    </code>
+  );
+}
+
+function CopyableCode({ code }: { code: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  }, [code]);
+
+  return (
+    <code
+      onClick={handleCopy}
+      className="relative inline-flex items-center gap-1 bg-code-bg text-code-fg border border-border/50 rounded px-1.5 py-0.5 font-mono text-[0.85em] cursor-pointer hover:bg-code-bg/80 transition-colors group"
+      title="Click to copy"
+    >
+      {code}
+      <svg
+        className="w-3 h-3 opacity-40 group-hover:opacity-80 transition-opacity flex-shrink-0"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        {copied ? (
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+        ) : (
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        )}
+      </svg>
+      {copied && (
+        <span className="absolute -top-7 left-1/2 -translate-x-1/2 text-[0.7rem] bg-foreground text-background px-1.5 py-0.5 rounded whitespace-nowrap">
+          Copied!
+        </span>
+      )}
+    </code>
+  );
+}
+
+/** Parse backtick-delimited segments into text, inline code, or copyable commands. */
+function parseStep(step: string) {
+  const parts = step.split(/(`[^`]+`)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith("`") && part.endsWith("`")) {
+      const code = part.slice(1, -1);
+      return isCommand(code) ? (
+        <CopyableCode key={i} code={code} />
+      ) : (
+        <InlineCode key={i} code={code} />
+      );
+    }
+    return <span key={i}>{part}</span>;
+  });
 }
 
 export function HandsOn({ title, steps, projectContext, projectStep }: HandsOnProps) {
@@ -27,7 +108,7 @@ export function HandsOn({ title, steps, projectContext, projectStep }: HandsOnPr
           <svg className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
           </svg>
-          <p className="text-sm text-muted italic">{projectContext}</p>
+          <p className="text-sm text-muted italic">{parseStep(projectContext)}</p>
         </div>
       )}
       <div className="p-6">
@@ -37,7 +118,7 @@ export function HandsOn({ title, steps, projectContext, projectStep }: HandsOnPr
               <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent text-white text-xs font-bold flex items-center justify-center mt-0.5">
                 {i + 1}
               </span>
-              <span className="text-[0.9375rem] leading-relaxed">{step}</span>
+              <span className="text-[0.9375rem] leading-relaxed">{parseStep(step)}</span>
             </li>
           ))}
         </ol>
