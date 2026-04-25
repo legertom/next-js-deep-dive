@@ -26,7 +26,12 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     const stored = localStorage.getItem("course-progress");
     if (stored) {
       try {
-        setCompletedLessons(new Set(JSON.parse(stored)));
+        const keys = JSON.parse(stored) as string[];
+        // Migrate legacy keys: `module/lesson` → `nextjs/module/lesson`
+        const migrated = keys.map((k) =>
+          k.split("/").length === 2 ? `nextjs/${k}` : k,
+        );
+        setCompletedLessons(new Set(migrated));
       } catch {}
     }
     setLoaded(true);

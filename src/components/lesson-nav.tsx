@@ -5,8 +5,8 @@ import { useProgress } from "./progress-provider";
 
 interface LessonNavProps {
   currentKey: string;
-  prev: { moduleSlug: string; lessonSlug: string; title: string; moduleTitle: string } | null;
-  next: { moduleSlug: string; lessonSlug: string; title: string; moduleTitle: string } | null;
+  prev: { courseSlug: string; moduleSlug: string; lessonSlug: string; title: string; moduleTitle: string } | null;
+  next: { courseSlug: string; moduleSlug: string; lessonSlug: string; title: string; moduleTitle: string } | null;
 }
 
 export function LessonNav({ currentKey, prev, next }: LessonNavProps) {
@@ -47,7 +47,7 @@ export function LessonNav({ currentKey, prev, next }: LessonNavProps) {
       <div className="flex justify-between gap-4">
         {prev ? (
           <Link
-            href={`/module/${prev.moduleSlug}/${prev.lessonSlug}`}
+            href={`/course/${prev.courseSlug}/${prev.moduleSlug}/${prev.lessonSlug}`}
             className="group flex-1 p-4 rounded-xl border border-card-border bg-card hover:border-accent/30 hover:shadow-sm transition-all no-underline"
           >
             <div className="text-xs text-muted mb-1 flex items-center gap-1">
@@ -64,7 +64,7 @@ export function LessonNav({ currentKey, prev, next }: LessonNavProps) {
         )}
         {next ? (
           <Link
-            href={`/module/${next.moduleSlug}/${next.lessonSlug}`}
+            href={`/course/${next.courseSlug}/${next.moduleSlug}/${next.lessonSlug}`}
             className="group flex-1 p-4 rounded-xl border border-card-border bg-card hover:border-accent/30 hover:shadow-sm transition-all no-underline text-right"
           >
             <div className="text-xs text-muted mb-1 flex items-center justify-end gap-1">

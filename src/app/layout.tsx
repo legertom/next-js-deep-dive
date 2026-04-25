@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Next.js 16 Deep Dive",
-  description: "A hands-on course to master every feature of Next.js 16 — from first principles.",
+  title: "React & Next.js Learning",
+  description: "Two hands-on, comprehensive courses for mastering modern React 19 and Next.js 16 from first principles.",
 };
 
 export default function RootLayout({

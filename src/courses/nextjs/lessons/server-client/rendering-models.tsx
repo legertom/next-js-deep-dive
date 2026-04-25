@@ -257,20 +257,31 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
       <h2>Comparing All Four Models</h2>
 
-      <Diagram caption="Rendering Models Comparison">
-        <table>
-          <thead>
-            <tr><th>Model</th><th>When rendered</th><th>Data freshness</th><th>TTFB</th><th>Granularity</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>SSG</td><td>Build time</td><td>Stale</td><td>Fastest</td><td>Page</td></tr>
-            <tr><td>ISR</td><td>Build + interval</td><td>Slightly stale</td><td>Fast</td><td>Page</td></tr>
-            <tr><td>SSR</td><td>Every request</td><td>Fresh</td><td>Slow</td><td>Page</td></tr>
-            <tr><td>Streaming</td><td>Every request</td><td>Fresh</td><td>Fast*</td><td>Component</td></tr>
-          </tbody>
-        </table>
-        <p>* Streaming sends initial HTML almost immediately (fast TTFB) then progressively fills in content.</p>
-      </Diagram>
+      <figure className="my-8">
+        <div className="rounded-xl border border-card-border bg-card p-4 overflow-x-auto">
+          <table className="w-full text-sm border-collapse">
+            <thead>
+              <tr className="border-b border-card-border">
+                <th className="text-left font-semibold py-2 pr-4">Model</th>
+                <th className="text-left font-semibold py-2 pr-4">When rendered</th>
+                <th className="text-left font-semibold py-2 pr-4">Data freshness</th>
+                <th className="text-left font-semibold py-2 pr-4">TTFB</th>
+                <th className="text-left font-semibold py-2">Granularity</th>
+              </tr>
+            </thead>
+            <tbody className="[&>tr]:border-b [&>tr]:border-card-border/50 [&>tr:last-child]:border-0">
+              <tr><td className="py-2 pr-4 font-mono">SSG</td><td className="py-2 pr-4">Build time</td><td className="py-2 pr-4">Stale</td><td className="py-2 pr-4">Fastest</td><td className="py-2">Page</td></tr>
+              <tr><td className="py-2 pr-4 font-mono">ISR</td><td className="py-2 pr-4">Build + interval</td><td className="py-2 pr-4">Slightly stale</td><td className="py-2 pr-4">Fast</td><td className="py-2">Page</td></tr>
+              <tr><td className="py-2 pr-4 font-mono">SSR</td><td className="py-2 pr-4">Every request</td><td className="py-2 pr-4">Fresh</td><td className="py-2 pr-4">Slow</td><td className="py-2">Page</td></tr>
+              <tr><td className="py-2 pr-4 font-mono">Streaming</td><td className="py-2 pr-4">Every request</td><td className="py-2 pr-4">Fresh</td><td className="py-2 pr-4">Fast*</td><td className="py-2">Component</td></tr>
+            </tbody>
+          </table>
+          <p className="text-xs text-muted mt-3">* Streaming sends initial HTML almost immediately (fast TTFB) then progressively fills in content.</p>
+        </div>
+        <figcaption className="text-center text-sm text-muted mt-3 italic">
+          Rendering Models Comparison
+        </figcaption>
+      </figure>
 
       <Quiz
         question="In the traditional SSR model (Pages Router), what happens if one of three data fetches in getServerSideProps takes 5 seconds?"
