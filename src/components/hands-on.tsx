@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, type ReactNode } from "react";
 
 interface HandsOnProps {
   title: string;
@@ -9,19 +9,35 @@ interface HandsOnProps {
   projectStep?: string;
 }
 
-/** Detect if a code string looks like a runnable command vs a file path / identifier. */
+const COMMAND_PREFIXES = [
+  "npm ", "npx ", "yarn ", "pnpm ", "cd ", "git ", "mkdir ", "touch ",
+  "rm ", "cp ", "mv ", "cat ", "echo ", "curl ", "node ", "bun ",
+  "next ", "vercel ", "sudo ",
+];
+
+/** Shell command — paste into a terminal. */
 function isCommand(code: string): boolean {
-  const commandPrefixes = [
-    "npm ", "npx ", "yarn ", "pnpm ", "cd ", "git ", "mkdir ", "touch ",
-    "rm ", "cp ", "mv ", "cat ", "echo ", "curl ", "node ", "bun ",
-    "next ", "vercel ", "sudo ",
-  ];
   const trimmed = code.trimStart();
   return (
-    commandPrefixes.some((p) => trimmed.startsWith(p)) ||
+    COMMAND_PREFIXES.some((p) => trimmed.startsWith(p)) ||
     trimmed.includes(" && ") ||
     trimmed.includes(" | ")
   );
+}
+
+/**
+ * Show copy icon only for content the student will paste somewhere
+ * (terminal, editor, browser). File paths and short identifiers are
+ * styled as code but not copyable — the icon would be visual noise.
+ */
+function shouldCopy(code: string): boolean {
+  if (isCommand(code)) return true;
+  const trimmed = code.trim();
+  // Code with structure (assignments, blocks, statements)
+  if (/[;{=]/.test(trimmed)) return true;
+  // Multi-token snippets long enough to be worth pasting (e.g. HTML fragments)
+  if (trimmed.length > 25 && /\s/.test(trimmed)) return true;
+  return false;
 }
 
 function CopyableCode({ code, variant }: { code: string; variant: "command" | "inline" }) {
@@ -67,16 +83,48 @@ function CopyableCode({ code, variant }: { code: string; variant: "command" | "i
   );
 }
 
-/** Parse backtick-delimited segments into text, inline code, or copyable commands. */
+/** Code-styled but not copyable — used for file paths, short identifiers, short tags. */
+function InlineCode({ code }: { code: string }) {
+  return (
+    <code className="font-mono text-[0.85em] text-inline-code-fg !bg-transparent !border-0 !p-0">
+      {code}
+    </code>
+  );
+}
+
+const URL_REGEX = /(https?:\/\/\S+)/g;
+const URL_TRAILING_PUNCT = /[.,;:!?]+$/;
+
+/** Split a plain-text segment so any embedded URLs become CopyableCode. */
+function renderTextWithUrls(text: string, keyPrefix: string) {
+  const parts = text.split(URL_REGEX);
+  return parts.flatMap((part, i) => {
+    const key = `${keyPrefix}-${i}`;
+    if (!/^https?:\/\//.test(part)) {
+      return <span key={key}>{part}</span>;
+    }
+    // \S+ greedily eats trailing sentence punctuation — split it back out.
+    const trail = part.match(URL_TRAILING_PUNCT)?.[0] ?? "";
+    const url = trail ? part.slice(0, -trail.length) : part;
+    const nodes: ReactNode[] = [<CopyableCode key={key} code={url} variant="inline" />];
+    if (trail) nodes.push(<span key={`${key}-t`}>{trail}</span>);
+    return nodes;
+  });
+}
+
+/** Parse backtick-delimited segments and auto-detect URLs in plain text. */
 function parseStep(step: string) {
   const parts = step.split(/(`[^`]+`)/g);
-  return parts.map((part, i) => {
+  return parts.flatMap((part, i) => {
     if (part.startsWith("`") && part.endsWith("`")) {
       const code = part.slice(1, -1);
+      if (!shouldCopy(code)) {
+        return <InlineCode key={`b-${i}`} code={code} />;
+      }
       const variant = isCommand(code) ? "command" : "inline";
-      return <CopyableCode key={i} code={code} variant={variant} />;
+      return <CopyableCode key={`b-${i}`} code={code} variant={variant} />;
     }
-    return <span key={i}>{part}</span>;
+    return renderTextWithUrls(part, `t-${i}`);
   });
 }
 
