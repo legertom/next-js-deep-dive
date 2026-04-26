@@ -4,6 +4,7 @@ import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FileTree } from "@/components/file-tree";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function CompositionPatterns() {
   return (
@@ -433,6 +434,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           "Refresh http://localhost:3000/posts — each Like button should now show the post title. The title was loaded on the server and passed to the button that runs in the browser.",
           "Try passing something that cannot be sent from server to client. Add a prop like formatter={() => {}} to LikeButton. You will see an error because functions cannot be passed from server to client — only simple values like strings, numbers, and arrays.",
         ]}
+      />
+
+      <ShortAnswer
+        question="A Client Component can render a Server Component as `children` from a Server parent, but it can't import a Server Component directly. Explain why these two situations are fundamentally different."
+        rubric={[
+          "Importing a Server Component into a Client file would require shipping that component's code to the browser — but its code is server-only (DB queries, secrets, fs access), so the build refuses to bundle it",
+          "When the Server Component is passed as children, it has already been rendered on the server before the client ever sees it; the client just receives a serialized React Element tree and inserts it into the JSX slot",
+          "Bonus: notes that the rule is about WHO RENDERS the component (server) vs WHERE IT APPEARS in the final tree (anywhere — even inside a client interactive shell)",
+        ]}
+        topic="Why server-component-as-children works but server-component-as-import doesn't"
       />
     </div>
   );

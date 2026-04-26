@@ -4,6 +4,7 @@ import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FileTree } from "@/components/file-tree";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function LoadingAndError() {
   return (
@@ -372,6 +373,16 @@ export default function PostNotFound() {
           "To test the error page, temporarily change your `app/posts/[slug]/page.tsx` to throw an error: add `throw new Error('Oops!')` before the return. Visit any post and you should see your error message with the 'Try again' button. Notice the nav bar from your layout is still visible!",
           "Remove the `throw new Error` line and the `await new Promise(...)` delay. Your blog now has loading and error handling built in. The loading page shows automatically when content is slow, and the error page catches problems without breaking the whole site.",
         ]}
+      />
+
+      <ShortAnswer
+        question="Explain mechanically how `loading.tsx` works. What does Next.js do with that file under the hood, and why is it equivalent to a Suspense boundary?"
+        rubric={[
+          "Next.js wraps the page in a <Suspense> boundary whose `fallback` is whatever loading.tsx exports",
+          "When the page suspends (awaiting Server Component data), the fallback renders in its place; when the data resolves, the real content streams in",
+          "Bonus: notes that this means the layout shell renders instantly without waiting for the page's data, and you get this behavior with no useState/isLoading patterns",
+        ]}
+        topic="How loading.tsx maps to a Suspense boundary"
       />
     </div>
   );

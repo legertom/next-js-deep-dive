@@ -4,6 +4,7 @@ import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FileTree } from "@/components/file-tree";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function LayoutsAndTemplates() {
   return (
@@ -307,6 +308,16 @@ export default function DashboardTemplate({
           "Add a `<footer>` below `{children}` in the same layout file with the text 'My Blog 2026'. Now every page in your site has a header and a footer.",
           "Visit any page and right-click -> View Page Source. You will see the nav, footer, and page content all in the HTML. The layout is rendered on the server together with the page.",
         ]}
+      />
+
+      <ShortAnswer
+        question="When the user navigates between two pages that share a layout, the layout's state survives but a template's state resets. Explain why, and describe a scenario where you'd reach for a template instead of a layout."
+        rubric={[
+          "Layouts are preserved across navigation: React reuses the same component instance, so any state, scroll position, refs, and effects are kept alive — only the page below it swaps",
+          "Templates re-mount on every navigation: a fresh component instance is created, useState resets, useEffect fires, animations replay",
+          "Reach for a template when you specifically want re-mount behavior — e.g. enter animations on every page visit, fresh analytics per pageview, or a per-page useEffect that should always run on entry",
+        ]}
+        topic="Layout vs template: persistent vs re-mounting"
       />
     </div>
   );

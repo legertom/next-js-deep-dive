@@ -4,6 +4,7 @@ import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FileTree } from "@/components/file-tree";
 import { FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function DynamicRoutes() {
   return (
@@ -410,6 +411,16 @@ export default async function DocsPage({
           "Visit http://localhost:3000/posts/my-first-post in your browser. You should see 'my-first-post' as the heading. Now try http://localhost:3000/posts/hello-world — the same page works with any slug!",
           "Go back to `app/posts/page.tsx` and wrap each post title in an `<a>` tag linking to its post page. For example: `<li><a href='/posts/my-first-post'>My First Post</a></li>`. Click the links to make sure they work.",
         ]}
+      />
+
+      <ShortAnswer
+        question="In Next.js 16, the `params` prop in a dynamic route page is a Promise you must `await`. Why is it async instead of a plain object, and what does that enable?"
+        rubric={[
+          "Async params support Cache Components and Partial Prerendering — the static shell of a page can render before the dynamic params are even known",
+          "Awaiting params marks the dynamic boundary: everything before the await can be statically prerendered (instantly served from cache), everything after depends on the request",
+          "Bonus: notes that this enables shell-first streaming where the layout and static content show immediately while dynamic per-route content fills in",
+        ]}
+        topic="Why params is async in Next.js 16"
       />
     </div>
   );

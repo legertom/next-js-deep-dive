@@ -4,6 +4,7 @@ import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FileTree } from "@/components/file-tree";
 import { FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function FileBasedRouting() {
   return (
@@ -234,6 +235,16 @@ export async function POST(request: Request) {
           "Notice the pattern: the folder name `posts` becomes the URL path `/posts`, and the `page.tsx` file inside it is what gets displayed. No router setup needed!",
           "Try creating a file `app/posts/helpers.ts` with `export function hello() { return 'hi'; }` inside it. Now visit http://localhost:3000/posts/helpers — you will get a 404. Only `page.tsx` files create pages, so you can safely put other files next to your pages.",
         ]}
+      />
+
+      <ShortAnswer
+        question="Why does Next.js only create routes for files literally named `page.tsx` (or `route.ts`) instead of treating every file in the `app/` directory as a URL? What does this design enable?"
+        rubric={[
+          "Only specific filenames (page.tsx, route.ts, layout.tsx, etc.) are treated as 'public' route entries; everything else in app/ is treated as private/colocated code",
+          "This lets you place utilities, child components, hooks, tests, and styles next to the page that uses them without those files becoming accessible URLs",
+          "Bonus: notes the safety benefit — you can't accidentally expose an internal helper or test fixture as a public route",
+        ]}
+        topic="Why Next.js requires the page.tsx filename for routes"
       />
     </div>
   );

@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function StreamingAndSuspense() {
   return (
@@ -316,6 +317,16 @@ async function Analytics() {
           the route is dynamically rendered.
         </p>
       </Callout>
+
+      <ShortAnswer
+        question="When you wrap a slow Server Component in `<Suspense fallback={<Skeleton />}>`, the rest of the page renders instantly while the slow part streams in later. Walk through what the server actually sends to the browser to make this work."
+        rubric={[
+          "The server immediately sends the page shell (everything outside the Suspense boundary) along with the fallback HTML (the skeleton) for what's still loading",
+          "When the slow component's data resolves on the server, the server appends another HTML chunk plus a tiny inline script that swaps the skeleton for the real content",
+          "Bonus: notes that this all happens over a single open HTTP response — it's a streaming response, not multiple requests, and React on the client handles the swap-in seamlessly",
+        ]}
+        topic="How streaming + Suspense progressively render a page"
+      />
     </>
   );
 }

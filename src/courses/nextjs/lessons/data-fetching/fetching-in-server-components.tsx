@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function FetchingInServerComponents() {
   return (
@@ -277,6 +278,16 @@ export default async function ProductPage({
           data to render, keep it as a Server Component.
         </p>
       </Callout>
+
+      <ShortAnswer
+        question="Why does fetching data in a Server Component eliminate the 'render → spinner → fetch → re-render' loading pattern from pre-Server-Components React? What changes about *when* the data is available to the user?"
+        rubric={[
+          "The fetch happens on the server BEFORE any HTML is sent — by the time the browser receives the page, the data is already rendered into the markup",
+          "There's no client-side render → mount → effect → fetch → re-render cycle, so no intermediate state where the user sees an empty shell or spinner",
+          "Bonus: notes this also lets you delete client-side data-fetching libraries (TanStack Query, SWR) for read paths — the page IS the server endpoint",
+        ]}
+        topic="Why Server Component data fetching eliminates the spinner pattern"
+      />
     </>
   );
 }

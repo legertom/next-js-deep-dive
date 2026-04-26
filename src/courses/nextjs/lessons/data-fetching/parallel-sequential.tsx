@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function ParallelSequential() {
   return (
@@ -373,6 +374,16 @@ async function AlbumGrid({ albumsPromise }: { albumsPromise: Promise<Album[]> })
           prevent the majority of server-side performance issues.
         </p>
       </Callout>
+
+      <ShortAnswer
+        question="You have two independent fetches in a Server Component, each taking 200ms. You wrote them as `const a = await getA(); const b = await getB();`. What's the performance cost, and how does `Promise.all` fix it?"
+        rubric={[
+          "Sequential awaits force the second fetch to wait for the first to complete; even though they're independent, total time is 200 + 200 = 400ms",
+          "Promise.all([getA(), getB()]) kicks off both promises immediately and waits for both to resolve concurrently — total time is max(200, 200) = 200ms",
+          "Bonus: notes the rule of thumb — before any await, ask 'does this need to wait for the previous one?' If no, parallelize with Promise.all",
+        ]}
+        topic="Sequential vs parallel awaits — the Promise.all fix"
+      />
     </>
   );
 }

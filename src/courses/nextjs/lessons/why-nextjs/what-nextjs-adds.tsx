@@ -4,6 +4,7 @@ import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FileTree } from "@/components/file-tree";
 import { FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function WhatNextjsAdds() {
   return (
@@ -608,6 +609,16 @@ export function middleware(request: NextRequest) {
           "Visit http://localhost:3000/about in your browser. You should see your About page. Right-click the page and choose 'View Page Source' — notice the text is right there in the HTML.",
           "Try visiting http://localhost:3000/fake-page — you will see a 404 page. Next.js only creates pages for folders that have a `page.tsx` file inside them.",
         ]}
+      />
+
+      <ShortAnswer
+        question="Explain why Server Components shrink the client JS bundle. What kinds of code stay on the server, and what does the browser actually receive?"
+        rubric={[
+          "Server Components run on the server only — their JavaScript is never shipped to the browser",
+          "Heavy dependencies used by Server Components (markdown renderers, DB drivers, formatting libraries, etc.) stay on the server, so they don't enter the client bundle",
+          "The browser receives the rendered HTML plus an RSC payload describing the component tree, plus the JS for any Client Components that need interactivity (only those need to ship)",
+        ]}
+        topic="Why Server Components reduce client bundle size"
       />
 
       <h2>Summary</h2>

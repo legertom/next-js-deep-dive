@@ -4,6 +4,7 @@ import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FileTree } from "@/components/file-tree";
 import { FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function ArchitectureOverview() {
   return (
@@ -810,6 +811,16 @@ export function LikeButton({ postId, initialLikes }) {
         router makes navigations instant. The renderer makes first paint early.
         Everything is in service of user experience.
       </Callout>
+
+      <ShortAnswer
+        question="Walk through what happens when a user clicks a Next.js <Link> to navigate from /blog to /blog/another-post. Why does this feel instant compared to a traditional SPA, and what does the server actually send?"
+        rubric={[
+          "Soft navigation: the client router intercepts the click and updates the URL via the History API — no full page reload",
+          "The server is asked only for the RSC payload of the changed route segments; shared layouts above the change point are preserved (state and DOM intact)",
+          "It feels instant because Next.js prefetches the linked route when it becomes visible, so by the time the user clicks, the data and JS may already be cached locally",
+        ]}
+        topic="What happens during soft navigation between Next.js routes"
+      />
 
       <h2>Summary</h2>
 

@@ -4,6 +4,7 @@ import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FileTree } from "@/components/file-tree";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function ClientComponents() {
   return (
@@ -351,6 +352,16 @@ export function Greeting() {
           "Refresh http://localhost:3000/posts and click the Like button a few times. The number should go up each time you click. This works because the button runs in the browser where it can track clicks.",
           "Open the browser DevTools Console and add console.log('Like button loaded') inside LikeButton. Refresh the page — this time the message DOES appear in the browser console, because this is a Client Component.",
         ]}
+      />
+
+      <ShortAnswer
+        question="When you add `'use client'` to a file, what happens to that file AND every file it imports? Why does the directive carry a real cost beyond the file you put it on?"
+        rubric={[
+          "The file becomes a client boundary: its JS is bundled and shipped to the browser, including everything it transitively imports",
+          "Imported files don't need their own 'use client' directive — they get pulled into the client bundle automatically because a client file uses them",
+          "Cost: every byte of bundled code reaches the browser on first load, and the imported files lose access to server-only APIs (DB clients, fs, secrets, env vars) when they cross into client land",
+        ]}
+        topic="The cost and reach of the 'use client' directive"
       />
     </div>
   );

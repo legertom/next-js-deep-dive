@@ -4,6 +4,7 @@ import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FileTree } from "@/components/file-tree";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function ServerComponents() {
   return (
@@ -82,21 +83,46 @@ export default async function UsersPage() {
         component that needs it, on the server, with zero client-side cost.
       </p>
 
-      <Diagram caption="Traditional React vs Server Components">
-        <div>
-          <p><strong>Traditional React:</strong> Browser downloads component JS → Executes → Fetches data → Renders</p>
-          <p>Cost: Component code + data fetching library + rendering time</p>
-          <p><strong>Server Components:</strong> Server executes component → Sends rendered output to browser</p>
-          <p>Cost: Just the rendered output (HTML-like payload)</p>
-          <p><strong>What gets eliminated:</strong></p>
-          <ul>
-            <li>Component source code (not shipped)</li>
-            <li>Import dependencies (not shipped)</li>
-            <li>Data fetching libraries (not shipped)</li>
-            <li>Runtime rendering cost (done on server)</li>
-          </ul>
+      <figure className="my-8">
+        <div className="rounded-xl border border-card-border bg-card p-5 space-y-4 text-sm leading-relaxed">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-muted mb-1">
+              Traditional React
+            </div>
+            <p className="m-0">
+              Browser downloads component JS → executes → fetches data → renders.
+            </p>
+            <p className="m-0 text-muted text-xs mt-1">
+              Cost: component code + data-fetching library + rendering time.
+            </p>
+          </div>
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-accent mb-1">
+              Server Components
+            </div>
+            <p className="m-0">
+              Server executes component → sends rendered output to the browser.
+            </p>
+            <p className="m-0 text-muted text-xs mt-1">
+              Cost: just the rendered output (an HTML-like payload).
+            </p>
+          </div>
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-muted mb-1">
+              What gets eliminated
+            </div>
+            <ul className="m-0 pl-5 space-y-0.5">
+              <li>Component source code (not shipped)</li>
+              <li>Import dependencies (not shipped)</li>
+              <li>Data-fetching libraries (not shipped)</li>
+              <li>Runtime rendering cost (done on server)</li>
+            </ul>
+          </div>
         </div>
-      </Diagram>
+        <figcaption className="text-center text-sm text-muted mt-3 italic">
+          Traditional React vs Server Components
+        </figcaption>
+      </figure>
 
       <h2>What You CAN Do in Server Components</h2>
 
@@ -292,6 +318,16 @@ export default async function PostPage({ params }: { params: { slug: string } })
           "Refresh http://localhost:3000/posts — you should see your 3 posts listed. The data comes from your file, but the browser never downloads that file. It all happens on the server.",
           "Add console.log(posts) inside your page function. Check your terminal — the data prints there. Check the browser console — nothing. This proves the data stays on the server.",
         ]}
+      />
+
+      <ShortAnswer
+        question="A Server Component can `await db.user.findById(id)` directly. Why is this safe — i.e., why don't database credentials, queries, or environment variables leak to the browser?"
+        rubric={[
+          "Server Components run only on the server; their JavaScript is never bundled for the browser, so DB drivers, query strings, and env vars stay private to the server",
+          "What reaches the client is the rendered HTML plus an RSC payload describing the component tree — not the source code that produced it",
+          "Bonus: notes that this lets you delete an entire layer of API routes for read paths — the page itself IS the server-side endpoint, and you save a network hop",
+        ]}
+        topic="Why direct database access from Server Components is safe"
       />
     </div>
   );

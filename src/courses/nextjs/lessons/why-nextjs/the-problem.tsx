@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function TheProblem() {
   return (
@@ -367,6 +368,16 @@ const Dashboard = React.lazy(() => import('./Dashboard'));
           "Right-click anywhere on the page and choose 'View Page Source'. Notice that the HTML contains real content — headings, text, links. This is server rendering in action.",
           "Now open `app/page.tsx` in your editor. Change the heading text to 'My Blog' and save. The browser updates instantly! Keep this project open — you will build on it for the entire course.",
         ]}
+      />
+
+      <ShortAnswer
+        question="In your own words, why does a plain React SPA produce both a slow first paint AND a data-fetching waterfall? Connect the two problems — they share a common root cause."
+        rubric={[
+          "Slow first paint: the HTML the server sends is essentially empty (just a root div + a script tag), so the browser must download, parse, and execute the JS bundle before any content renders",
+          "Waterfall: components only discover their data needs after they render, so nested fetches happen sequentially (parent fetches → renders → child mounts → child fetches → ...) instead of in parallel",
+          "Common root cause: rendering happens entirely on the client, so neither the HTML nor the data can be prepared ahead of the JS load — the server has nothing useful to send before the bundle arrives",
+        ]}
+        topic="Why React SPAs cause slow first paint and request waterfalls"
       />
 
       <h2>Summary</h2>
