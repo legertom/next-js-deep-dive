@@ -48,9 +48,13 @@ export function CompositionPatterns() {
           <p>Server Component (outer)</p>
           <p>&nbsp;&nbsp;└── Client Component (interactive wrapper)</p>
           <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── Server Component (passed as children)</p>
-          <p>The client component is the "donut" -- it wraps server-rendered content without pulling it into the client bundle.</p>
         </div>
       </Diagram>
+
+      <p>
+        The client component is the "donut" -- it wraps server-rendered content
+        without pulling it into the client bundle.
+      </p>
 
       <CodeBlock language="tsx" filename="app/page.tsx (Server Component)">
         {`import { Sidebar } from '@/components/sidebar';
@@ -152,51 +156,91 @@ export function CollapsiblePanel() {
       <h2>Pattern: Prop Injection for Any Slot</h2>
 
       <p>
-        The children pattern generalizes to any prop. You can pass server-rendered
-        content through any prop that accepts <code>ReactNode</code>.
+        The donut pattern used <code>children</code>, but <code>children</code>{" "}
+        is just <em>one</em> slot. What if you need <strong>two</strong>{" "}
+        server-rendered regions inside a client wrapper — say, a code editor
+        with an independent file explorer on the left and a preview on the
+        right? Or a modal with a custom header AND a custom body?
       </p>
 
-      <CodeBlock language="tsx" filename="Multiple server component slots">
-        {`// components/split-view.tsx
-"use client";
+      <p>
+        Good news: any prop typed as <code>React.ReactNode</code> works exactly
+        like <code>children</code>. The donut pattern generalizes to as many
+        slots as you need.
+      </p>
+
+      <Diagram caption="The donut pattern with multiple slots">
+        <div>
+          <p>Server Component (page)</p>
+          <p>&nbsp;&nbsp;└── Client Component (SplitView -- has drag state)</p>
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── Server Component (passed as <code>left</code>)</p>
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── Server Component (passed as <code>right</code>)</p>
+        </div>
+      </Diagram>
+
+      <p>
+        First, the client wrapper. It owns the interactive state (where the
+        divider sits) but knows nothing about what content fills each side:
+      </p>
+
+      <CodeBlock language="tsx" filename="components/split-view.tsx (Client Component)">
+        {`"use client";
 
 import { useState } from 'react';
 
 interface SplitViewProps {
-  left: React.ReactNode;   // Server-rendered content
-  right: React.ReactNode;  // Server-rendered content
-  dividerPosition?: number;
+  left: React.ReactNode;   // Server-rendered content goes here
+  right: React.ReactNode;  // ...and here
+  initialPosition?: number;
 }
 
-export function SplitView({ left, right, dividerPosition = 50 }: SplitViewProps) {
-  const [position, setPosition] = useState(dividerPosition);
+export function SplitView({ left, right, initialPosition = 50 }: SplitViewProps) {
+  const [position, setPosition] = useState(initialPosition);
 
   return (
     <div className="split-view">
       <div style={{ width: \`\${position}%\` }}>{left}</div>
       <div
         className="divider"
-        onMouseDown={handleDragStart}  // Client interactivity
+        onMouseDown={() => setPosition(50)}  // drag handler omitted for brevity
       />
       <div style={{ width: \`\${100 - position}%\` }}>{right}</div>
     </div>
   );
-}
+}`}
+      </CodeBlock>
 
-// app/editor/page.tsx -- Server Component
-import { SplitView } from '@/components/split-view';
+      <p>
+        Now the server page that fills both slots with server components. Notice
+        that <code>FileExplorer</code> and <code>CodePreview</code> are
+        imported and rendered <em>here</em>, in the Server Component — not
+        inside <code>SplitView</code>:
+      </p>
+
+      <CodeBlock language="tsx" filename="app/editor/page.tsx (Server Component)">
+        {`import { SplitView } from '@/components/split-view';
 import { FileExplorer } from '@/components/file-explorer';  // Server Component
 import { CodePreview } from '@/components/code-preview';    // Server Component
 
 export default async function EditorPage() {
   return (
     <SplitView
-      left={<FileExplorer />}     {/* Server-rendered, zero JS */}
-      right={<CodePreview />}     {/* Server-rendered, zero JS */}
+      left={<FileExplorer />}     {/* Server-rendered, zero JS shipped */}
+      right={<CodePreview />}     {/* Server-rendered, zero JS shipped */}
     />
   );
 }`}
       </CodeBlock>
+
+      <Callout type="tip" title="Why this works">
+        Both <code>FileExplorer</code> and <code>CodePreview</code> are rendered
+        on the server <em>before</em> <code>SplitView</code> ever runs in the
+        browser. The client wrapper just receives two pre-rendered React node
+        trees and drops them into its JSX slots. The server components' code —
+        database queries, filesystem access, secret imports — never crosses
+        into the client bundle. It's the same donut pattern as before, just
+        with two holes instead of one.
+      </Callout>
 
       <h2>The Serialization Boundary</h2>
 
