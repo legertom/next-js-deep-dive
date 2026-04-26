@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function GeneratingText() {
   return (
@@ -226,6 +227,16 @@ const { text: reply } = await generateText({
           "Add a system prompt to your `streamText` call: `system: 'You are a helpful blog assistant. Summarize posts in 2-3 concise sentences.'` — then test it again to see how the tone changes.",
           "Try changing the model string to a different provider (like `\"openai/gpt-5.4\"`) and compare the summaries. This is the power of the AI Gateway — one line change, different model.",
         ]}
+      />
+
+      <ShortAnswer
+        question="When would you use `streamText` vs `generateText`? Pick a concrete scenario for each and explain the user-experience difference."
+        rubric={[
+          "generateText: short, complete responses where the user waits and gets the full text at once — e.g. classification, JSON extraction, or a summary that's used programmatically (not displayed token-by-token)",
+          "streamText: long-form responses displayed to a user (chatbot, on-screen summary) — words appear as they're generated, so the user sees progress instead of a blank screen with a spinner",
+          "Bonus: notes that streaming dramatically reduces perceived latency — total time is similar, but seeing partial text feels much faster than waiting for a complete response",
+        ]}
+        topic="streamText vs generateText: when to use each"
       />
     </div>
   );

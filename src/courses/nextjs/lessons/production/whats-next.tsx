@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function WhatsNext() {
   return (
@@ -226,6 +227,16 @@ and provide specific, actionable guidance.`}
           "Open your blog on your phone. It works there too because Next.js handles responsive rendering for you.",
           "Push your latest code to GitHub if you have not already. In the next three modules, you will add AI features to your blog — an AI summarizer, a chat interface, and intelligent tools.",
         ]}
+      />
+
+      <ShortAnswer
+        question="Looking back at the whole course — Server Components, Cache Components, proxy.ts, Server Actions, the React Compiler — what's the common design philosophy threading through all of these features?"
+        rubric={[
+          "The common thread is moving work to the server (rendering, data fetching, mutations, caching decisions) and keeping the client bundle minimal — so the browser does less and the server does more",
+          "Each feature removes a category of friction: Server Components remove client-side fetch waterfalls; Cache Components avoid redundant work; proxy.ts replaces per-page boilerplate; Server Actions delete API-route plumbing; the Compiler removes manual memoization",
+          "Bonus: notes that the philosophy is 'idiomatic code → production-grade behavior, by default' — you can write clean, simple components and get the optimized version for free without configuring it",
+        ]}
+        topic="The design philosophy threading through Next.js 16"
       />
     </div>
   );

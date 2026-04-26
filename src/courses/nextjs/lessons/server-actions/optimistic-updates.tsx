@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function OptimisticUpdates() {
   return (
@@ -353,6 +354,16 @@ export function FollowButton({
           "In the button's onClick, call addOptimisticLike(null) first (this updates the count instantly), then call await likePost(postId) after. Click the button — you should see the number go up immediately, even though the server takes 2 seconds.",
           "Remove the 2-second delay from your action when you are done testing. The like button now feels instant to users, even on slow connections!",
         ]}
+      />
+
+      <ShortAnswer
+        question="When you use `useOptimistic` to make a like button feel instant, what shows on screen during the server round-trip — and what happens if the server rejects or errors on the update?"
+        rubric={[
+          "The optimistic value renders immediately (count + 1) while the server action is in flight, so the user sees their click reflected without latency",
+          "If the server succeeds, the optimistic state is discarded in favor of the real state — which by then matches what the user already saw, so there's no flicker",
+          "If the server fails or rejects, the optimistic state is automatically discarded and the UI reverts to the real unchanged value — the user sees the rollback (and you can show an error)",
+        ]}
+        topic="useOptimistic: lifecycle of an optimistic update including failure"
       />
     </div>
   );

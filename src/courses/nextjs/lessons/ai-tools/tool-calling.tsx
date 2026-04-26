@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function ToolCalling() {
   return (
@@ -227,6 +228,16 @@ export async function POST(req: Request) {
           "Test it with curl: curl -X POST http://localhost:3000/api/ask -H 'Content-Type: application/json' -d '{\"question\": \"Do you have any posts about React?\"}'. The AI should use your search tool and respond with information about matching posts.",
           "Try different questions like 'What topics do you cover?' or 'Find posts about TypeScript'. Notice how the AI decides when to use the search tool and when to answer directly.",
         ]}
+      />
+
+      <ShortAnswer
+        question="When you give a model tools (each with an `inputSchema`), the model decides for itself when to call them. Why is this more powerful than just answering from training data?"
+        rubric={[
+          "The model gets access to data it doesn't have in training — your database, your APIs, the current date, current user state — so it can answer questions about live or proprietary information accurately",
+          "The model decides whether and when to call the tool, so simple questions get answered directly while data-needing questions trigger tool use — efficient and natural",
+          "Bonus: notes that tool calling also lets the model take ACTIONS, not just read — sending emails, creating records, querying live systems — turning the LLM into an actual agent",
+        ]}
+        topic="Why model-controlled tool calling is powerful"
       />
     </div>
   );

@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function FormsAndValidation() {
   return (
@@ -358,6 +359,16 @@ export function CreatePostForm() {
           "Now add a redirect after the action succeeds: import { redirect } from 'next/navigation' at the top of actions.ts, and add redirect('/posts') as the last line of createPost. Submit the form again — you should be sent back to the posts page automatically.",
           "Try submitting the form with empty fields. Notice it still works — in a real app you would add validation. For now, add the HTML required attribute to both inputs so the browser blocks empty submissions.",
         ]}
+      />
+
+      <ShortAnswer
+        question="The `action` prop on `<form>` plus `useActionState` give you progressive enhancement — the form works even before JavaScript hydrates. Why is this valuable, and what changes the moment JS finishes loading?"
+        rubric={[
+          "Before JS hydrates, the form falls back to native HTML submission: a real navigation happens, the server handles the form, the page reloads with the result — the form is functional immediately",
+          "After hydration, React intercepts the submit, sends FormData via fetch, applies the response (including useActionState updates) without a full reload — fast, stateful, no page flash",
+          "Bonus: notes the value for users on slow connections or cheap devices — the form is usable during the entire first-paint-to-interactive window, not just after JS finishes",
+        ]}
+        topic="How form actions enable progressive enhancement"
       />
     </div>
   );

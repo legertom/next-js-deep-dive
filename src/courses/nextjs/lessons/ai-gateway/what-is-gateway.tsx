@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function WhatIsGateway() {
   return (
@@ -209,6 +210,16 @@ const result = await generateText({
           "Start your dev server and test it. Ask your blog AI a question. The response comes from OpenAI now instead of Anthropic.",
           'Change it back to "anthropic/claude-sonnet-4.5" (or whichever model you prefer). That is the power of AI Gateway — switching providers is a one-line change.',
         ]}
+      />
+
+      <ShortAnswer
+        question="AI Gateway lets you switch from `anthropic/claude-sonnet-4.5` to `openai/gpt-4o` with a one-line change. Beyond convenience, what production-grade benefits does using a Gateway provide?"
+        rubric={[
+          "Failover and fallbacks: if a provider is down or rate-limited, Gateway can automatically route to a configured backup model so your app stays up",
+          "Centralized observability: every request flows through one place, so logging, cost tracking, and rate-limit management work uniformly across providers — instead of scattered per-provider dashboards",
+          "Bonus: notes that Gateway also handles authentication once (no API keys sprinkled through your code), supports zero-data-retention policies, and lets you A/B-test models with no code change",
+        ]}
+        topic="Production benefits of AI Gateway beyond model switching"
       />
     </div>
   );

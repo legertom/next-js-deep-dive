@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function PerformanceOptimization() {
   return (
@@ -346,6 +347,16 @@ export function WebVitals() {
           "Open app/layout.tsx and add a Google Font. Import it at the top: import { Inter } from 'next/font/google'. Then create it: const inter = Inter({ subsets: ['latin'] }). Add className={inter.className} to your <body> tag.",
           "Save and check your blog in the browser. The font should change to Inter. Open DevTools and look at the Network tab — notice there is no extra request for the font file. Next.js inlines it at build time!",
         ]}
+      />
+
+      <ShortAnswer
+        question="Why does using `<Image>` instead of `<img>` improve Core Web Vitals automatically? Pick at least two specific metrics and explain mechanically how the component improves each."
+        rubric={[
+          "LCP (Largest Contentful Paint): <Image> serves modern formats (WebP/AVIF), generates responsive srcsets sized for the device, and supports the `priority` prop for above-the-fold images — all of which shrink and accelerate the largest visible image",
+          "CLS (Cumulative Layout Shift): <Image> requires width/height (or fill), so the browser reserves space before the image loads and the page doesn't shift when it arrives",
+          "Bonus: notes that <Image> also lazy-loads off-screen images automatically, reducing initial bandwidth and JS execution",
+        ]}
+        topic="How <Image> improves Core Web Vitals"
       />
     </div>
   );

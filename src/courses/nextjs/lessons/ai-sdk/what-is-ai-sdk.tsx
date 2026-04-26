@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function WhatIsAiSdk() {
   return (
@@ -241,6 +242,16 @@ export async function POST(req: Request) {
           "Link your project to Vercel by running `vercel link`, then pull your environment variables with `vercel env pull`. This sets up OIDC authentication so the AI Gateway handles provider credentials for you automatically.",
           "That's it! The SDK is installed and ready to use. In the next lesson, we'll use it to generate text.",
         ]}
+      />
+
+      <ShortAnswer
+        question="What problems does the AI SDK solve that you'd otherwise hit if you called provider APIs (OpenAI, Anthropic) directly with `fetch`? Name at least two concrete improvements."
+        rubric={[
+          "Provider abstraction: a single API (generateText, streamText, useChat) works across providers; switching from OpenAI to Anthropic is a model-string change, not a code rewrite",
+          "Built-in features: streaming (SSE parsing), tool calling (loop management), structured output (schema validation), and chat state (message history) — all of which you'd otherwise implement yourself",
+          "Bonus: notes that AI Gateway integration handles credential management, fallbacks, and observability through one config",
+        ]}
+        topic="What the AI SDK does that raw fetch calls don't"
       />
     </div>
   );

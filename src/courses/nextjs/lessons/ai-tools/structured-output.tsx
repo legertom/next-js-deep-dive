@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function StructuredOutput() {
   return (
@@ -221,6 +222,16 @@ export async function POST(req: Request) {
           "Open your blog post page component. Add a button labeled 'Generate Tags'. When clicked, it should fetch your new API route with the post content, then display the returned tags as badges below the post title.",
           "Test it end-to-end: navigate to a blog post, click Generate Tags, and verify that relevant tags appear on the page.",
         ]}
+      />
+
+      <ShortAnswer
+        question="Why is using a Zod schema with `Output.object()` better than asking the model to 'return JSON' in a prompt and parsing the response yourself?"
+        rubric={[
+          "The SDK enforces the schema at generation time (via constrained decoding or post-validation), so the model is much more likely to return data in the exact shape you need — much fewer parse errors than freeform JSON",
+          "You get TypeScript types automatically — the returned `output` is typed as the Zod schema's inferred type, no manual casting or interface declaration",
+          "Bonus: notes that .describe() on each Zod field becomes guidance the model uses, which beats freeform prompting and lets you explain field semantics inline with the schema",
+        ]}
+        topic="Why Output.object + Zod beats prompting for JSON"
       />
     </div>
   );

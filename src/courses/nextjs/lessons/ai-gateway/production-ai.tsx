@@ -2,6 +2,7 @@ import { CodeBlock } from "@/components/code-block";
 import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function ProductionAi() {
   return (
@@ -248,6 +249,16 @@ model: "anthropic/claude-opus-4.6"`}
         You are not just someone who has &quot;used&quot; Next.js &mdash; you
         understand how it works under the hood.
       </p>
+
+      <ShortAnswer
+        question="You're shipping an AI feature to production. Name three failure modes specific to LLMs (vs traditional API calls) that you should plan for, and how AI Gateway helps mitigate each."
+        rubric={[
+          "Provider outages or rate limits — Gateway provides configurable fallbacks to alternate models so your app keeps working when one provider degrades",
+          "Slow or stuck responses (10+ seconds with no progress) — Gateway provides timeout policies and retries, plus streaming surfaces partial output so the user sees something even before completion",
+          "Hallucinations or off-topic responses — Gateway's observability lets you trace requests, replay failed runs with adjusted prompts, and track quality regressions over time",
+        ]}
+        topic="LLM-specific failure modes and how Gateway helps"
+      />
 
       <p>
         Now go build something amazing. You have the skills. Ship it.

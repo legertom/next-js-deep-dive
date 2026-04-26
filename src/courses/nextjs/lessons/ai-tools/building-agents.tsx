@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function BuildingAgents() {
   return (
@@ -287,6 +288,16 @@ export default function AssistantPage() {
           "Start your dev server and navigate to http://localhost:3000/assistant. Try asking 'What posts do I have about React?' -- the assistant should use the search tool and tell you about matching posts.",
           "Try a more complex request like 'Help me outline a blog post about Next.js caching'. The agent should reason about the topic and give you a structured outline, possibly searching your existing posts for related content.",
         ]}
+      />
+
+      <ShortAnswer
+        question="What's the difference between a single tool-calling response and an 'agent' that uses tools in a loop? When does the loop actually matter?"
+        rubric={[
+          "Single response: the model calls a tool once, gets the result, returns its final answer — fine for direct lookups like 'find posts tagged X'",
+          "Agent loop: the model can call multiple tools across multiple steps, reasoning about each tool's result before deciding the next action — the loop continues until a stopWhen condition is met",
+          "Bonus: notes that loops are needed for any task with sub-questions — e.g. 'find posts about React, summarize the top 3, suggest a follow-up topic' requires three sequential tool calls with reasoning between them",
+        ]}
+        topic="Single tool call vs agent loop — when looping matters"
       />
     </div>
   );

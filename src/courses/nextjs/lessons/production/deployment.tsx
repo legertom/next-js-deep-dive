@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function Deployment() {
   return (
@@ -336,6 +337,16 @@ export default nextConfig;`}
           "Click 'Deploy' and wait about a minute. When it is done, you will get a live URL. Open it — your blog is now live on the internet!",
           "Try pushing a new commit to your repository. Vercel will automatically build and deploy the update.",
         ]}
+      />
+
+      <ShortAnswer
+        question="Vercel gives you a unique preview URL for every git push that isn't to your main branch. Why is having a permanent URL per commit valuable beyond just 'testing before merge'?"
+        rubric={[
+          "Each preview URL is permanent — even after you merge or close a PR, the URL still works, so you can always refer back to a specific historical version of the app",
+          "Stakeholders, designers, and QA can review and comment on a real working version of any feature without having to set up the project locally",
+          "Bonus: notes that this also enables instant rollback (just promote a previous deployment) and per-PR end-to-end testing, since CI can run against the actual deployed URL",
+        ]}
+        topic="Why Vercel's permanent per-commit preview URLs matter"
       />
     </div>
   );

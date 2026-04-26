@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function ChatUi() {
   return (
@@ -245,6 +246,16 @@ export function Chat() {
           "Render the messages by mapping over `messages` and displaying each message's `parts`. Show the role (You or AI) and render `text` parts as paragraphs.",
           "Create a page at `app/chat/page.tsx` that imports and renders your Chat component. Visit `/chat` in your browser and have a conversation with your AI assistant!",
         ]}
+      />
+
+      <ShortAnswer
+        question="The `useChat` hook represents messages as an array of `parts` rather than a single text string. Why is the parts model necessary for modern chat UIs?"
+        rubric={[
+          "A modern assistant message can include text, images, tool calls, tool results, reasoning blocks, files, and structured data — all in one turn — so a single string can't represent it",
+          "Treating each piece as a part lets the UI render each appropriately (markdown for text, table for tool result, image preview for vision, code block for code) instead of cramming everything into one rendered string",
+          "Bonus: notes that this also makes streaming work naturally — each part can stream independently and the UI updates incrementally as different kinds of content arrive",
+        ]}
+        topic="Why useChat models messages as parts, not strings"
       />
     </div>
   );

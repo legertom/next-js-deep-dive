@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function WhatAreServerActions() {
   return (
@@ -263,6 +264,16 @@ export async function updateProfile(formData: FormData) {
           "Now make it useful: rename the function to createPost, add a formData parameter (formData: FormData), and console.log(formData.get('title')). Add an <input name='title' /> inside the form before the button.",
           "Type a title, click submit, and check your terminal again. You should see whatever you typed printed on the server. That is a Server Action — a function that runs on the server when triggered from the browser!",
         ]}
+      />
+
+      <ShortAnswer
+        question="A Server Action lets you call a server function from a button click without writing an API route. Walk through what's happening under the hood — what's serialized, what's transferred, and what comes back?"
+        rubric={[
+          "When the action fires, React serializes the FormData (or arguments) and POSTs it to a unique URL Next.js generated for that action; the function runs on the server with that data",
+          "The response includes both the action's return value AND any cache-revalidation effects, so React can update the affected parts of the page",
+          "Bonus: notes that this collapses 'write a backend endpoint, write a frontend fetch, wire them up, handle errors' into one function plus a 'use server' directive — fewer files, less boilerplate, type safety end-to-end",
+        ]}
+        topic="What happens under the hood when you call a Server Action"
       />
     </div>
   );
