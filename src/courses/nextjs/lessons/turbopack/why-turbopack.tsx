@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function WhyTurbopack() {
   return (
@@ -220,6 +221,16 @@ Next.js 16  → Turbopack is the DEFAULT for both dev and build`}
           "Stop that server with Ctrl+C. Run `npm run dev` again to go back to Turbopack. You have been using Turbopack this whole time — it is the default in Next.js 16!",
           "Open http://localhost:3000 in your browser and click around to a few pages. Each page compiles on demand, so the first visit is the slowest. After that, it is instant.",
         ]}
+      />
+
+      <ShortAnswer
+        question="Turbopack is described as 'incremental' — it only recomputes what changed. Why does this make dev mode dramatically faster than webpack, and where does the speedup come from architecturally?"
+        rubric={[
+          "Webpack rebuilds large portions of the dependency graph even for small file changes; Turbopack tracks which functions in the build pipeline depend on which files and only re-runs the affected functions",
+          "Function-level caching means most operations are cache hits across builds; navigating between pages reuses prior work instead of rebuilding from scratch",
+          "Bonus: notes that Rust gives Turbopack additional advantages on top of incrementality — no GC pauses, native compilation, easy parallelism",
+        ]}
+        topic="Why Turbopack's incrementality makes dev mode fast"
       />
     </div>
   );

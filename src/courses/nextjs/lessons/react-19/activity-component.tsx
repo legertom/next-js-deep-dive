@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function ActivityComponent() {
   return (
@@ -278,6 +279,16 @@ export default function DashboardLayout({
           "Type something in the text input on Tab A again. Switch to Tab B and back. Your typed text is still there! Activity hides the content with `display: none` instead of unmounting it, so all state is preserved.",
           "Right-click the page and choose Inspect. When Tab B is active, find the Tab A content in the Elements panel — it is still in the DOM but has `display: none` on it.",
         ]}
+      />
+
+      <ShortAnswer
+        question="The `<Activity>` component preserves a subtree's state by hiding it instead of unmounting it. Compare this to conditional rendering (`{visible && <Tab />}`): what state survives in each, and when would you reach for Activity?"
+        rubric={[
+          "Conditional rendering unmounts the component, destroying all useState, useRef, refs to DOM nodes, scroll positions, etc. — the next render starts fresh",
+          "Activity keeps the component mounted but hidden (display: none), so all React state, scroll positions, focus, form values, and DOM identity survive",
+          "Reach for Activity for tabs/wizards where switching back should feel like 'going back to where you were' — typed-in text, scrolled position, in-progress edits all stay",
+        ]}
+        topic="Activity vs conditional rendering: what state survives"
       />
     </div>
   );

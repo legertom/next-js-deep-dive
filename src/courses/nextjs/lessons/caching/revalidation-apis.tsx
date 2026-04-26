@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function RevalidationApis() {
   return (
@@ -251,6 +252,16 @@ export async function CommentList({ postId }: { postId: string }) {
           "Refresh the posts page and note the timestamp. Now click your Refresh Posts button. You should see the timestamp update — the cache was cleared and the page re-rendered with fresh data.",
           "Try it again: wait a moment, then click the button. Each click forces the page to re-render, even though it is cached. This is how you manually clear the cache when new content is available.",
         ]}
+      />
+
+      <ShortAnswer
+        question="Next.js 16 has three cache-invalidation APIs: `revalidateTag`, `updateTag`, and `refresh`. Imagine you just edited a blog post — which one fires, and how is it different from the other two?"
+        rubric={[
+          "`revalidateTag('post-123')` invalidates everything tagged with that tag — next visitor triggers a rebuild; great for 'this content changed, anyone reading it should see new data'",
+          "`updateTag` is for transactional updates that need to happen synchronously after a mutation (e.g. inside a Server Action), so the user who just submitted sees their own change immediately",
+          "`refresh` re-renders the current route in place without a full navigation — useful for 'pull to refresh' style UI",
+        ]}
+        topic="When to use revalidateTag vs updateTag vs refresh"
       />
     </div>
   );

@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function UseEffectEvent() {
   return (
@@ -256,6 +257,16 @@ export function usePageView(route: string, userId: string | null) {
           "Test again: change the label text in the input, then click the increment button. The console log now shows the correct, latest label value every time — without re-running the effect when label changes.",
           "Try changing just the label input without clicking the button. The effect does not re-run. That is the key benefit: useEffectEvent reads the latest values without being reactive.",
         ]}
+      />
+
+      <ShortAnswer
+        question="`useEffectEvent` separates 'reactive' values (deps that should re-trigger the effect) from 'event-like' values (latest values read inside the effect, but not triggers). Why is this distinction useful, and what bug does it solve that adding values to the dependency array would create?"
+        rubric={[
+          "Adding a value to the dependency array means the effect re-runs every time it changes — but sometimes you only want to read the latest value WITHOUT re-running (e.g. analytics that fires on count change but reads the latest user name)",
+          "Without useEffectEvent, you'd either get stale closures (if you omit the dep) or unwanted re-runs (if you include it); useEffectEvent gives you 'always-fresh value' without making the effect re-react to it",
+          "Bonus: notes that this also unblocks the lint rule (react-hooks/exhaustive-deps) — you no longer have to choose between disabling the rule and breaking your effect's behavior",
+        ]}
+        topic="What useEffectEvent separates: reactive vs event-like values"
       />
     </div>
   );

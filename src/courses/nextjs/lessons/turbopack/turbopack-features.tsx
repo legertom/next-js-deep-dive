@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function TurbopackFeatures() {
   return (
@@ -316,6 +317,16 @@ rm -rf .next/cache/turbopack`}
           "Look at the terminal where `npm run dev` is running. After each save, you should see a message like `compiled in Xms`. The time should be very small, often under 100ms.",
           "Try a bigger change: add a new paragraph with some text to `app/page.tsx`. Save and watch. Even with new content, the update should appear in under 200 milliseconds. This speed is what makes Turbopack great for development.",
         ]}
+      />
+
+      <ShortAnswer
+        question="Fast Refresh keeps a component's state intact when you save changes to it — instead of doing a full page reload. Why is preserving state across saves such a big deal for development experience?"
+        rubric={[
+          "You don't lose context: form values, scroll position, modal/dropdown state, and the deeply-nested state that took clicks to reach all survive the code change",
+          "Without Fast Refresh, every save would require manually navigating back to where you were testing — slow and frustrating, especially for state-heavy flows",
+          "Bonus: notes that Fast Refresh works because Turbopack and React swap component implementations at the React level (not the page level), preserving the rest of the component tree's state",
+        ]}
+        topic="Why Fast Refresh's state preservation matters"
       />
     </div>
   );

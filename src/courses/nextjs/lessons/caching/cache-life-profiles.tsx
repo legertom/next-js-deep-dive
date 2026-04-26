@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function CacheLifeProfiles() {
   return (
@@ -234,6 +235,16 @@ cacheLife({ expire: 3600 }) // 1 hour
           "Try changing 'hours' to 'days' or 'max' and restarting the dev server each time. Notice that 'max' keeps the cache the longest, 'hours' the shortest.",
           "Change it back to cacheLife('hours') for the posts page — this is a good fit since new blog posts could be added throughout the day.",
         ]}
+      />
+
+      <ShortAnswer
+        question="`cacheLife` profiles like 'minutes', 'hours', 'days', and 'max' have two values inside them — `stale` and `revalidate`. Explain what each value controls and why the difference matters for user experience."
+        rubric={[
+          "`stale` is how long the cached value is served instantly without checking for a fresh version — the absolute fast path",
+          "`revalidate` is when the cache decides to fetch a new version in the background; visitors during this window still get the cached value (no waiting), but the cache rebuilds for the next visitor",
+          "Bonus: notes the UX consequence — long stale + short revalidate = always fast, occasionally fresh; short stale + long revalidate = fresher but with more cache misses",
+        ]}
+        topic="cacheLife: stale vs revalidate semantics"
       />
     </div>
   );

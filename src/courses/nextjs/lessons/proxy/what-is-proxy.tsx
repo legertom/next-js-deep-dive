@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function WhatIsProxy() {
   return (
@@ -200,6 +201,16 @@ export const config = {
           "Look at your terminal where npm run dev is running. You should see a log line printed for every page you visited, like: Request: GET /posts",
           "This is your proxy in action — it runs before every request reaches your pages. In the next lesson, you will use it to redirect users.",
         ]}
+      />
+
+      <ShortAnswer
+        question="Next.js 16 renamed `middleware.ts` to `proxy.ts`. What was misleading about the old name, and what does the new name better convey about what the file actually does?"
+        rubric={[
+          "'Middleware' suggested an Express-style pipeline that runs in the middle of request handling — but the file actually runs once at the network edge, BEFORE any page renders",
+          "'Proxy' conveys the real job: intercept requests at the network boundary, decide where they go (rewrite, redirect, or pass through), without rendering pages itself",
+          "Bonus: notes the rename also distances the file from misconceptions about chained or per-component middleware — it's a single function that runs once per request",
+        ]}
+        topic="Why Next.js renamed middleware.ts to proxy.ts"
       />
     </div>
   );

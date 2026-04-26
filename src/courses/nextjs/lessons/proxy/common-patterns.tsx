@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function CommonPatterns() {
   return (
@@ -384,6 +385,16 @@ export async function proxy(request: NextRequest) {
           "Check the browser address bar — it should now show /posts, not /old-blog. This is a redirect: the browser URL changes to the new location.",
           "Look at your terminal logs. You should see the request to /old-blog was logged before the redirect happened — the proxy ran first, then decided where to send the user.",
         ]}
+      />
+
+      <ShortAnswer
+        question="Why is auth-checking the canonical use case for `proxy.ts`? What's the alternative — putting auth checks inside individual pages — and what goes wrong with that approach?"
+        rubric={[
+          "Auth in proxy.ts means the check happens BEFORE any page renders, so unauthorized users are redirected without the server doing wasted work",
+          "Per-page auth checks duplicate logic across every protected page, are easy to forget on new routes, and waste server work rendering pages whose result will be discarded by the redirect",
+          "Bonus: notes that proxy redirects avoid leaking the existence of protected routes — users get bounced before any page response is generated",
+        ]}
+        topic="Why auth lives in proxy.ts, not individual pages"
       />
     </div>
   );

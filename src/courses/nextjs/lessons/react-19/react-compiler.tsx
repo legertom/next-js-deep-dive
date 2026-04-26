@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function ReactCompiler() {
   return (
@@ -328,6 +329,16 @@ function GoodComponent({ items }: { items: Item[] }) {
           "If you have any `useMemo` or `useCallback` calls in your components, try removing one of them. Save and test — the page should still work the same because the compiler now handles that memoization for you automatically.",
           "The React Compiler only works correctly when your components follow the Rules of React: do not mutate props or state directly. For example, never write `items.sort()` — always copy first with `[...items].sort()`. Your blog already follows these rules, so the compiler works out of the box!",
         ]}
+      />
+
+      <ShortAnswer
+        question="The React Compiler refuses to memoize components that violate the Rules of React (mutating props, conditional hooks, etc.). Why is this conservative behavior actually a feature, not a limitation?"
+        rubric={[
+          "If the compiler memoized impure code, it would cache values that should be recomputed — silently introducing stale-data bugs that are very hard to debug",
+          "The compiler's refusal is paired with the eslint-plugin-react-hooks rule that flags violations — so you fix the rule break (which was already a latent bug) and gain auto-memoization as a result",
+          "Bonus: notes that the compiler's correctness guarantee is what makes it safe to remove all manual useMemo/useCallback/React.memo — you can trust the optimization without verifying every component yourself",
+        ]}
+        topic="Why the React Compiler being conservative is a feature"
       />
     </div>
   );

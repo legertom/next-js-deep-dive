@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function CachingMentalModel() {
   return (
@@ -159,6 +160,16 @@ export default nextConfig`}
           "Refresh the page several times and watch the time. It changes on every refresh — this means the page is rendered fresh for each request.",
           "This is the default behavior in Next.js 16: every page is dynamic. In the next lesson, you will learn how to cache pages so they load instantly.",
         ]}
+      />
+
+      <ShortAnswer
+        question="In Next.js 16, the default is now dynamic rendering — pages re-render on every request unless you explicitly opt into caching. Why is 'dynamic by default' a better mental model than the old 'static by default with opt-out'?"
+        rubric={[
+          "Dynamic-by-default means the developer thinks intentionally about caching: caching is an opt-in performance optimization, not a hidden default that surprises you when data goes stale",
+          "It eliminates an entire class of bugs where a page accidentally got cached and showed stale data because of an implicit static decision",
+          "Bonus: notes that this matches how databases and other systems work — start correct (live data) and add caching where measurements show it's worth the staleness trade-off",
+        ]}
+        topic="Why Next.js 16 made dynamic rendering the default"
       />
     </div>
   );

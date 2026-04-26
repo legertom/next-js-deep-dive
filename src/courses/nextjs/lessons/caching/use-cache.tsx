@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function UseCache() {
   return (
@@ -249,6 +250,16 @@ export async function UserGreeting() {
           "Refresh the page a few times. The timestamp should now stay the same — the page is being served from cache instead of re-rendering.",
           "Try changing the heading text in app/posts/page.tsx. Even after saving, the old cached version may still show. Stop and restart the dev server to clear the cache and see your change.",
         ]}
+      />
+
+      <ShortAnswer
+        question="The `'use cache'` directive can be placed at three different levels: file-top (whole module), function-level (one function), or component-body. Why does Next.js give you these three scopes instead of just one global on/off switch?"
+        rubric={[
+          "Different parts of an app have different caching needs: a marketing page can cache forever, a function that fetches a product can cache differently than a function that fetches stock levels, and a component might need to mix cached and live data",
+          "Granularity lets you cache the expensive shared work (e.g. a function that fetches all products) without caching the request-specific work (e.g. the user's name)",
+          "Bonus: notes that file-level is broadest (good for static pages), function-level is precision (good for shared computations), and component-level is for per-render decisions",
+        ]}
+        topic="Why 'use cache' has multiple placement scopes"
       />
     </div>
   );

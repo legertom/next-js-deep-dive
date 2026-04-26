@@ -3,6 +3,7 @@ import { Quiz } from "@/components/quiz";
 import { Callout } from "@/components/callout";
 import { HandsOn } from "@/components/hands-on";
 import { Diagram, FlowDiagram } from "@/components/diagram";
+import { ShortAnswer } from "@/components/short-answer";
 
 export function ViewTransitions() {
   return (
@@ -247,6 +248,16 @@ export function Tabs({ tabs }: { tabs: Tab[] }) {
           "Open `app/globals.css` and add these styles at the bottom: `::view-transition-old(root) { animation: fade-out 200ms ease-in; }` and `::view-transition-new(root) { animation: fade-in 200ms ease-out; }`. Save and try navigating again — the fade should feel smoother.",
           "Click the back button in your browser. The fade transition works for back navigation too. If your browser does not support View Transitions (older Firefox), the pages will still update normally — just without animation.",
         ]}
+      />
+
+      <ShortAnswer
+        question="React 19's View Transitions are built on the browser's native View Transitions API. Why is that a meaningful design choice compared to JS-based animation libraries that animate route changes?"
+        rubric={[
+          "The browser handles the transition at the rendering layer (compositor), so animations run smoothly even during heavy JS work — no jank from React reconciliation",
+          "Native View Transitions automatically handle entering and exiting elements, including content the new page doesn't have — JS libraries have to track this manually",
+          "Bonus: notes that the browser API also enables persistent shared elements (a hero image that morphs between pages) using just CSS view-transition-name — no animation library needed",
+        ]}
+        topic="Why View Transitions are built on the browser API"
       />
     </div>
   );
