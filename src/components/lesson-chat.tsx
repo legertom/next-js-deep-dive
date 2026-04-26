@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { ChatPanel } from "./chat-panel";
@@ -22,9 +22,9 @@ export function LessonChat({
   articleRef,
 }: LessonChatProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [initialInput, setInitialInput] = useState<string | undefined>();
+  const [quotedText, setQuotedText] = useState<string | undefined>();
 
-  const { messages, sendMessage, status, stop, error } = useChat({
+  const { messages, sendMessage, setMessages, status, stop, error } = useChat({
     id: lessonKey,
     transport: new DefaultChatTransport({
       api: "/api/chat",
@@ -36,12 +36,23 @@ export function LessonChat({
 
   const handleAskAboutSelection = (selectedText: string) => {
     const truncated =
-      selectedText.length > 300
-        ? selectedText.slice(0, 300) + "..."
+      selectedText.length > 600
+        ? selectedText.slice(0, 600) + "…"
         : selectedText;
-    const prefilled = `Explain this: "${truncated}"`;
-    setInitialInput(prefilled);
+    setQuotedText(truncated);
     setIsOpen(true);
+  };
+
+  const handleSend = (text: string) => {
+    if (quotedText) {
+      const question = text || "Can you explain this?";
+      sendMessage({
+        text: `About this passage from the lesson:\n\n"${quotedText}"\n\n${question}`,
+      });
+      setQuotedText(undefined);
+    } else {
+      sendMessage({ text });
+    }
   };
 
   return (
@@ -59,16 +70,15 @@ export function LessonChat({
           status={status}
           error={error}
           lessonTitle={lessonTitle}
-          onSend={(text) => {
-            sendMessage({ text });
-            setInitialInput(undefined);
-          }}
+          onSend={handleSend}
           onStop={stop}
           onClose={() => {
             setIsOpen(false);
-            setInitialInput(undefined);
+            setQuotedText(undefined);
           }}
-          initialInput={initialInput}
+          onClearChat={() => setMessages([])}
+          quotedText={quotedText}
+          onClearQuote={() => setQuotedText(undefined)}
         />
       )}
 

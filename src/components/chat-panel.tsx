@@ -17,7 +17,9 @@ interface ChatPanelProps {
   onSend: (text: string) => void;
   onStop: () => void;
   onClose: () => void;
-  initialInput?: string;
+  onClearChat: () => void;
+  quotedText?: string;
+  onClearQuote: () => void;
 }
 
 export function ChatPanel({
@@ -28,23 +30,23 @@ export function ChatPanel({
   onSend,
   onStop,
   onClose,
-  initialInput,
+  onClearChat,
+  quotedText,
+  onClearQuote,
 }: ChatPanelProps) {
-  const [input, setInput] = useState(initialInput ?? "");
+  const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [size, setSize] = useState({ width: 384, height: 500 });
   const dragRef = useRef<{ startX: number; startY: number; startW: number; startH: number } | null>(null);
 
   const isLoading = status === "submitted" || status === "streaming";
+  const canSend = !isLoading && (input.trim().length > 0 || !!quotedText);
 
-  // Sync initialInput when it changes externally (e.g. from text selection)
+  // Focus the input whenever a new quote arrives
   useEffect(() => {
-    if (initialInput) {
-      setInput(initialInput);
-      inputRef.current?.focus();
-    }
-  }, [initialInput]);
+    if (quotedText) inputRef.current?.focus();
+  }, [quotedText]);
 
   const handleResizePointerDown = useCallback((e: React.PointerEvent) => {
     e.preventDefault();
@@ -60,7 +62,6 @@ export function ChatPanel({
   const handleResizePointerMove = useCallback((e: React.PointerEvent) => {
     if (!dragRef.current) return;
     const { startX, startY, startW, startH } = dragRef.current;
-    // Panel is anchored bottom-right, so dragging left increases width, dragging up increases height
     const newWidth = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, startW + (startX - e.clientX)));
     const newHeight = Math.min(MAX_HEIGHT, Math.max(MIN_HEIGHT, startH + (startY - e.clientY)));
     setSize({ width: newWidth, height: newHeight });
@@ -80,7 +81,7 @@ export function ChatPanel({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || isLoading) return;
+    if (!canSend) return;
     onSend(input.trim());
     setInput("");
   };
@@ -113,20 +114,34 @@ export function ChatPanel({
           </div>
           <div className="text-xs text-muted truncate">{lessonTitle}</div>
         </div>
-        <button
-          onClick={onClose}
-          className="text-muted hover:text-foreground p-1 rounded-lg hover:bg-border flex-shrink-0"
-          aria-label="Close chat"
-        >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+        <div className="flex items-center gap-1 flex-shrink-0">
+          {messages.length > 0 && (
+            <button
+              onClick={onClearChat}
+              className="text-muted hover:text-foreground p-1 rounded-lg hover:bg-border"
+              aria-label="Clear chat"
+              title="Clear chat"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3" />
+              </svg>
+            </button>
+          )}
+          <button
+            onClick={onClose}
+            className="text-muted hover:text-foreground p-1 rounded-lg hover:bg-border"
+            aria-label="Close chat"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
-        {messages.length === 0 && (
+        {messages.length === 0 && !quotedText && (
           <div className="text-center text-muted text-sm py-12">
             <p className="mb-2 text-lg">Ask me anything</p>
             <p className="text-xs">
@@ -200,6 +215,33 @@ export function ChatPanel({
         <div ref={messagesEndRef} />
       </div>
 
+      {/* Quote chip (above input) */}
+      {quotedText && (
+        <div className="mx-3 mt-3 flex items-start gap-2 px-3 py-2 rounded-lg border-l-2 border-accent bg-accent/5">
+          <svg className="w-3.5 h-3.5 text-accent mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h.5l1.146-1.854A1 1 0 017.5 14H8a3 3 0 003-3V7a3 3 0 00-3-3H5zm7 0a3 3 0 00-3 3v6a3 3 0 003 3h.5l1.146-1.854A1 1 0 0114.5 14h.5a3 3 0 003-3V7a3 3 0 00-3-3h-3z" />
+          </svg>
+          <div className="flex-1 min-w-0">
+            <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-accent mb-0.5">
+              Quoted from lesson
+            </div>
+            <p className="text-xs text-foreground/80 leading-relaxed line-clamp-4 whitespace-pre-wrap">
+              {quotedText}
+            </p>
+          </div>
+          <button
+            onClick={onClearQuote}
+            className="text-muted hover:text-foreground p-0.5 rounded flex-shrink-0"
+            aria-label="Remove quote"
+            title="Remove quote"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      )}
+
       {/* Input */}
       <form
         onSubmit={handleSubmit}
@@ -209,7 +251,7 @@ export function ChatPanel({
           ref={inputRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask a question..."
+          placeholder={quotedText ? "Add a question (optional)..." : "Ask a question..."}
           className="flex-1 px-3 py-2 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent"
           disabled={isLoading}
         />
@@ -224,7 +266,7 @@ export function ChatPanel({
         ) : (
           <button
             type="submit"
-            disabled={!input.trim()}
+            disabled={!canSend}
             className="px-3 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Send
